@@ -145,6 +145,24 @@ module z_motor_mount() {
   }
 }
 
+module z_motor_brace() {
+  module body() {
+    box_side([z_motor_brace_depth,z_motor_brace_height],[1,1,0,0]);
+  }
+
+  module holes() {
+    diagonal = sqrt(pow(z_motor_brace_depth,2) + pow(z_motor_brace_height,2));
+    offset = z_motor_brace_depth/2+sheet_thickness/2;
+    translate([offset,-offset,0]) rotate([0,0,45])
+      cube([diagonal,diagonal,sheet_thickness+1],center=true);
+  }
+
+  color("purple") difference() {
+    body();
+    holes();
+  }
+}
+
 module front_and_rear_face() {
   module body() {
     box_side([front_face_width,front_face_height],[0,2,2,2]);
@@ -240,6 +258,9 @@ module assembly() {
       translate([0,0,sheet_thickness/2+0.05]) mirror([1-side,0,0])
         z_motor_mount();
     }
+
+    translate([z_motor_brace_x_pos*side,z_motor_brace_y_pos,z_motor_brace_z_pos]) mirror([1-side,0,0]) rotate([0,90,0])
+      z_motor_brace();
 
     translate([side_brace_x_pos*side,side_brace_y_pos,side_brace_z_pos]) rotate([0,0,-90]) rotate([90,0,0])
       side_brace();

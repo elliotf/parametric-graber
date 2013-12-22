@@ -68,10 +68,10 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
   module screw_nut_hole() {
     thick = thickness+0.05;
-    screw_len = shoulder_width*.85 + nut_height;
+    screw_len = shoulder_width * .9 + nut_height;
 
     translate([tab_slot_pair_len/2,-thickness/2,0]) {
-      translate([0,-shoulder_width*0.75-nut_height/2,0])
+      translate([0,-shoulder_width*0.65-nut_height/2,0])
         cube([nut_diam,nut_height,thick],center=true);
 
       translate([0,-screw_len/2+0.05,0])

@@ -17,6 +17,9 @@ x_carriage_height = 60; // from prusa i3 parts
 z_motor_mount_width = nema17_side;
 z_motor_mount_depth = nema17_side;
 
+z_motor_brace_depth = z_motor_mount_depth;
+z_motor_brace_height = z_motor_brace_depth;
+
 side_brace_vertical_depth = build_y_with_overhead/2-skew_main_plate_to_rear;
 side_brace_horizontal_height = sheet_thickness*2+motor_side;
 
@@ -58,6 +61,10 @@ z_motor_x_pos = side_brace_x_pos + sheet_thickness/2 + z_motor_mount_width/2;
 z_motor_y_pos = skew_main_plate_to_rear+(z_motor_mount_depth/2+sheet_thickness/2)*front;
 z_motor_z_pos = -sheet_thickness;
 
+z_motor_brace_x_pos = z_motor_x_pos + z_motor_mount_width/2 + sheet_thickness/2;
+z_motor_brace_y_pos = z_motor_y_pos;
+z_motor_brace_z_pos = z_motor_z_pos - z_motor_brace_height/2;
+
 y_motor_x_pos = -y_bearing_thickness-sheet_thickness;
 y_motor_y_pos = (side_brace_total_depth/2-motor_side/2)*front;
 y_motor_z_pos = bottom_plate_z_pos+sheet_thickness/2+motor_side/2;
@@ -72,4 +79,4 @@ rear_face_z_pos = front_face_z_pos;
 
 psu_x_pos = side_brace_x_pos + 5 + psu_height/2;
 psu_y_pos = skew_main_plate_to_rear + sheet_thickness/2 + psu_width/2;
-psu_z_pos = psu_length/2 + 5;
+psu_z_pos = psu_length/2 + 30;
