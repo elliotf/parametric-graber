@@ -159,12 +159,14 @@ module front_and_rear_face() {
     }
 
     screw_clearance = 10;
-    screw_clearance_x_pos = build_x/2-screw_clearance/2;
+    screw_clearance_x_pos = build_x/2-screw_clearance;
     for(x=[screw_clearance_x_pos*left,0,screw_clearance_x_pos*right]) {
       translate([x,front_face_height/2,0]) {
-        cube([screw_clearance,screw_clearance,sheet_thickness+1],center=true);
-        translate([0,-screw_clearance/2,0])
-          hole(screw_clearance,sheet_thickness+1,32);
+        scale([2,1,1]) {
+          cube([screw_clearance,screw_clearance,sheet_thickness+1],center=true);
+          translate([0,-screw_clearance/2,0]) rotate([0,0,18])
+            hole(screw_clearance,sheet_thickness+1,10);
+        }
       }
     }
   }

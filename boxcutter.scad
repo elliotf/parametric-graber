@@ -29,9 +29,9 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0],tab_len=9,screw_diam=3,nut_diam
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*1.5;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4;
+  tab_from_end_dist = shoulder_width*6;
 
   function hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
 
