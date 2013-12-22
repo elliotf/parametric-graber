@@ -78,7 +78,6 @@ module bed_support() {
 
 module bottom_plate() {
   module body() {
-    //cube([bottom_plate_width,bottom_plate_depth,sheet_thickness],center=true);
     box_side([bottom_plate_width,bottom_plate_depth],[1,1,1,1]);
   }
 
@@ -93,7 +92,6 @@ module bottom_plate() {
 
 module z_motor_plate() {
   module body() {
-      //cube([motor_side+sheet_thickness*4,motor_side+sheet_thickness,sheet_thickness],center=true);
     box_side([motor_side,motor_side],[1,2,0,2]);
   }
 
