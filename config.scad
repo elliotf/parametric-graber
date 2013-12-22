@@ -31,11 +31,11 @@ build_x = 200;
 build_y = 200;
 build_z = 200;
 
-/*
 build_x = 150;
 build_y = 150;
 build_z = 150;
 
+/*
 build_x = 100;
 build_y = 100;
 build_z = 100;
@@ -157,14 +157,26 @@ nema14_shaft_diam = 5;
 nema14_shaft_len = 20;
 nema14_shoulder_diam = 22.1;
 
-motor_side = nema17_side;
-motor_len = motor_side;
-motor_hole_spacing = nema17_hole_spacing;
-motor_screw_diam = nema17_screw_diam;
-motor_shaft_diam = nema17_shaft_diam;
-motor_shaft_len = nema17_shaft_len;
-motor_shoulder_diam = nema17_shoulder_diam;
-motor_wire_hole_width = 9;
+motor_side             = nema17_side;
+motor_len              = motor_side;
+motor_hole_spacing     = nema17_hole_spacing;
+motor_screw_diam       = nema17_screw_diam;
+motor_shaft_diam       = nema17_shaft_diam;
+motor_shaft_len        = nema17_shaft_len;
+motor_shoulder_diam    = nema17_shoulder_diam;
+motor_wire_hole_width  = 9;
+motor_wire_hole_height = 6;
+
+/*
+*/
+motor_side             = nema14_side;
+motor_hole_spacing     = nema14_hole_spacing;
+motor_screw_diam       = nema14_screw_diam;
+motor_shaft_diam       = nema14_shaft_diam;
+motor_shaft_len        = nema14_shaft_len;
+motor_shoulder_diam    = nema14_shoulder_diam;
+motor_len              = motor_side;
+motor_wire_hole_width  = 9;
 motor_wire_hole_height = 6;
 
 z_motor_side = nema14_side;

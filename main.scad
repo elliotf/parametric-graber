@@ -100,7 +100,7 @@ module bottom_plate() {
   }
 
   module holes() {
-    material_width_remain = 55;
+    material_width_remain = motor_side;
     hole_radius = 10;
 
     hull() {
@@ -119,9 +119,9 @@ module bottom_plate() {
   }
 }
 
-module z_motor_plate() {
+module z_motor_mount() {
   module body() {
-    box_side([motor_side,motor_side],[1,2,0,2]);
+    box_side([z_motor_mount_width,z_motor_mount_depth],[1,2,0,2]);
   }
 
   module holes() {
@@ -130,12 +130,12 @@ module z_motor_plate() {
     for(side=[left,right]) {
       for(end=[front,rear]) {
         translate([motor_hole_spacing/2*side,motor_hole_spacing/2*end,0])
-          hole(3,sheet_thickness+1,16);
+          hole(3,sheet_thickness+1,10);
       }
     }
 
     translate([z_smooth_threaded_spacing,0,0])
-      hole(8,sheet_thickness+1,64);
+      hole(rod_diam,sheet_thickness+1,16);
   }
 
   color("orange") difference() {
@@ -159,10 +159,11 @@ module front_and_rear_face() {
     }
 
     screw_clearance = 10;
-    screw_clearance_x_pos = build_x/2-screw_clearance;
+    screw_clearance_scale = 2;
+    screw_clearance_x_pos = build_x/2-screw_clearance*screw_clearance_scale/2;
     for(x=[screw_clearance_x_pos*left,0,screw_clearance_x_pos*right]) {
       translate([x,front_face_height/2,0]) {
-        scale([2,1,1]) {
+        scale([screw_clearance_scale,1,1]) {
           cube([screw_clearance,screw_clearance,sheet_thickness+1],center=true);
           translate([0,-screw_clearance/2,0]) rotate([0,0,18])
             hole(screw_clearance,sheet_thickness+1,10);
@@ -217,7 +218,7 @@ module y_motor_mount() {
     for(side=[left,right]) {
       for(end=[front,rear]) {
         translate([motor_hole_spacing/2*side,motor_hole_spacing/2*end,0])
-          hole(3,sheet_thickness+1,16);
+          hole(3,sheet_thickness+1,10);
       }
     }
   }
@@ -237,7 +238,7 @@ module assembly() {
       % motor();
 
       translate([0,0,sheet_thickness/2+0.05]) mirror([1-side,0,0])
-        z_motor_plate();
+        z_motor_mount();
     }
 
     translate([side_brace_x_pos*side,side_brace_y_pos,side_brace_z_pos]) rotate([0,0,-90]) rotate([90,0,0])
