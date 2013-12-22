@@ -147,6 +147,7 @@ nema17_hole_spacing = 31;
 nema17_screw_diam = m3_diam;
 nema17_shaft_diam = 5;
 nema17_shaft_len = 16.5;
+nema17_shoulder_diam = 22.1;
 
 nema14_side = 35.3;
 nema14_len = nema14_side;
@@ -154,6 +155,7 @@ nema14_hole_spacing = 26;
 nema14_screw_diam = m3_diam;
 nema14_shaft_diam = 5;
 nema14_shaft_len = 20;
+nema14_shoulder_diam = 22.1;
 
 motor_side = nema17_side;
 motor_len = motor_side;
@@ -161,6 +163,7 @@ motor_hole_spacing = nema17_hole_spacing;
 motor_screw_diam = nema17_screw_diam;
 motor_shaft_diam = nema17_shaft_diam;
 motor_shaft_len = nema17_shaft_len;
+motor_shoulder_diam = nema17_shoulder_diam;
 motor_wire_hole_width = 9;
 motor_wire_hole_height = 6;
 

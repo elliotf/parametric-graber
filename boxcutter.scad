@@ -1,4 +1,15 @@
-module box_side(dimensions=[0,0],sides=[0,0,0,0],tab_len=9,screw_diam=3,nut_diam=5.45,shoulder_width=5,thickness=6) {
+bc_tab_len=9;
+bc_screw_diam=3;
+bc_nut_diam=5.45;
+bc_shoulder_width=5;
+bc_thickness=6;
+
+module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
+  tab_len        = bc_tab_len;
+  screw_diam     = bc_screw_diam;
+  nut_diam       = bc_nut_diam;
+  shoulder_width = bc_shoulder_width;
+  thickness      = bc_thickness;
   // creates a side of a box with tabs or slots that surrounds the provided dimensions
 
   IS_TAB = 1;
@@ -31,7 +42,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0],tab_len=9,screw_diam=3,nut_diam
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*6;
+  tab_from_end_dist = shoulder_width*4.5;
 
   function hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
 

@@ -88,7 +88,7 @@ module y_carriage() {
     }
   }
 
-  difference() {
+  color("salmon") difference() {
     body();
     holes();
   }
@@ -125,7 +125,7 @@ module z_motor_plate() {
   }
 
   module holes() {
-    cylinder(r=23/2,h=sheet_thickness+1,center=true);
+    hole(motor_shoulder_diam,sheet_thickness+1,16);
 
     for(side=[left,right]) {
       for(end=[front,rear]) {
@@ -205,6 +205,29 @@ module rear_face() {
   }
 }
 
+module y_motor_mount() {
+  module body() {
+    //cube([motor_side,motor_side,sheet_thickness],center=true);
+    box_side([motor_side,motor_side],[0,1,1,0]);
+  }
+
+  module holes() {
+    hole(motor_shoulder_diam,sheet_thickness+1,16);
+
+    for(side=[left,right]) {
+      for(end=[front,rear]) {
+        translate([motor_hole_spacing/2*side,motor_hole_spacing/2*end,0])
+          hole(3,sheet_thickness+1,16);
+      }
+    }
+  }
+
+  color("purple") difference() {
+    body();
+    holes();
+  }
+}
+
 module assembly() {
   translate([0,main_plate_y_pos,main_plate_z_pos]) rotate([90,0,0])
     main_plate();
@@ -221,12 +244,15 @@ module assembly() {
       side_brace();
   }
 
-  translate([front_face_x_pos,front_face_y_pos,front_face_z_pos]) rotate([90,0,0]) front_face();
-  translate([rear_face_x_pos,rear_face_y_pos,rear_face_z_pos]) rotate([90,0,0]) rear_face();
+  translate([front_face_x_pos,front_face_y_pos,front_face_z_pos]) rotate([90,0,0])
+    front_face();
+  translate([rear_face_x_pos,rear_face_y_pos,rear_face_z_pos]) rotate([90,0,0])
+    rear_face();
 
-  //translate([-sheet_thickness*1.5,(build_y_with_overhead/2-motor_side/2)*front,bottom_plate_z_pos+sheet_thickness/2+motor_side/2]) {
   translate([y_motor_x_pos,y_motor_y_pos,y_motor_z_pos]) {
     % rotate([0,90,0]) motor();
+    translate([sheet_thickness/2,0,0]) rotate([0,90,0]) rotate([0,0,180])
+      y_motor_mount();
   }
 
   translate([y_carriage_x_pos,y_carriage_y_pos+(build_y/2*0),y_carriage_z_pos]) y_carriage();

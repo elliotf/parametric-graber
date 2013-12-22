@@ -67,6 +67,6 @@ rear_face_x_pos = 0;
 rear_face_y_pos = (bottom_plate_depth/2+sheet_thickness/2)*rear;
 rear_face_z_pos = front_face_z_pos;
 
-psu_x_pos = side_brace_x_pos + 10 + psu_height/2;
+psu_x_pos = side_brace_x_pos + 5 + psu_height/2;
 psu_y_pos = skew_main_plate_to_rear + 5 + psu_width/2;
-psu_z_pos = psu_length/2;
+psu_z_pos = psu_length/2 + 10;
