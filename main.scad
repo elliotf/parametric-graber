@@ -49,7 +49,7 @@ module side_brace() {
 
   module body() {
     translate([-side_brace_total_depth/2+side_brace_vertical_depth/2,side_brace_horizontal_height/2,0]) {
-      box_side([side_brace_vertical_depth, side_brace_total_height-side_brace_horizontal_height, sheet_thickness],[0,0,0,1]);
+      box_side([side_brace_vertical_depth, side_brace_vertical_height, sheet_thickness],[0,0,0,1]);
     }
 
     translate([0,bottom+side_brace_horizontal_height/2,0])
@@ -139,7 +139,7 @@ module z_motor_mount() {
       hole(rod_diam,sheet_thickness+1,16);
   }
 
-  color("orange") difference() {
+  color("purple") difference() {
     body();
     holes();
   }
@@ -157,7 +157,7 @@ module z_motor_brace() {
       cube([diagonal,diagonal,sheet_thickness+1],center=true);
   }
 
-  color("purple") difference() {
+  color("orange") difference() {
     body();
     holes();
   }
@@ -251,21 +251,6 @@ module assembly() {
   translate([0,main_plate_y_pos,main_plate_z_pos]) rotate([90,0,0])
     main_plate();
 
-  for(side=[left,right]) {
-    translate([z_motor_x_pos*side,z_motor_y_pos,z_motor_z_pos]) {
-      % motor();
-
-      translate([0,0,sheet_thickness/2+0.05]) mirror([1-side,0,0])
-        z_motor_mount();
-    }
-
-    translate([z_motor_brace_x_pos*side,z_motor_brace_y_pos,z_motor_brace_z_pos]) mirror([1-side,0,0]) rotate([0,90,0])
-      z_motor_brace();
-
-    translate([side_brace_x_pos*side,side_brace_y_pos,side_brace_z_pos]) rotate([0,0,-90]) rotate([90,0,0])
-      side_brace();
-  }
-
   translate([front_face_x_pos,front_face_y_pos,front_face_z_pos]) rotate([90,0,0])
     front_face();
   translate([rear_face_x_pos,rear_face_y_pos,rear_face_z_pos]) rotate([90,0,0])
@@ -284,6 +269,35 @@ module assembly() {
 
   translate([psu_x_pos,psu_y_pos,psu_z_pos]) {
     % cube([psu_height,psu_width,psu_length],center=true);
+  }
+
+  for(side=[left,right]) {
+    translate([z_motor_x_pos*side,z_motor_y_pos,z_motor_z_pos]) {
+      % motor();
+
+      translate([0,0,sheet_thickness/2+0.05]) mirror([1-side,0,0])
+        z_motor_mount();
+    }
+
+    translate([z_motor_brace_x_pos*side,z_motor_brace_y_pos,z_motor_brace_z_pos]) mirror([1-side,0,0]) rotate([0,90,0])
+      z_motor_brace();
+
+    translate([side_brace_x_pos*side,side_brace_y_pos,side_brace_z_pos]) rotate([0,0,-90]) rotate([90,0,0])
+      side_brace();
+
+    // y rods
+    translate([y_rod_spacing/2*side,0,-rod_diam/2]) rotate([90,0,0]) {
+      color("grey", 0.5)
+        cylinder(r=rod_diam/2,h=side_brace_total_depth + sheet_thickness*2 + 0.05,center=true);
+    }
+
+    // z rods
+    translate([(z_motor_x_pos+z_smooth_threaded_spacing)*side,z_motor_y_pos,side_brace_vertical_height/2-sheet_thickness/2]) {
+      color("grey", 0.5)
+        cylinder(r=rod_diam/2,h=side_brace_vertical_height + sheet_thickness + 0.05,center=true);
+    }
+
+    //
   }
 }
 

@@ -31,6 +31,7 @@ main_plate_z_pos = main_plate_height/2 - side_brace_horizontal_height;
 
 side_brace_total_depth = build_y_with_overhead+sheet_thickness;
 side_brace_total_height = main_plate_height;
+side_brace_vertical_height = side_brace_total_height - side_brace_horizontal_height;
 
 side_brace_x_pos = build_x_with_overhead/2 + sheet_thickness + sheet_thickness/2;
 side_brace_y_pos = 0;
