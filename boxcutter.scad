@@ -1,7 +1,7 @@
 bc_tab_len=9;
 bc_screw_diam=3;
 bc_nut_diam=5.45;
-bc_shoulder_width=5;
+bc_shoulder_width=6;
 bc_thickness=6;
 
 module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
@@ -38,6 +38,8 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
   nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
+  echo("Screw length: ", thickness + shoulder_width + nut_height);
+
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
@@ -66,7 +68,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
   module screw_nut_hole() {
     thick = thickness+0.05;
-    screw_len = shoulder_width*1 + nut_height;
+    screw_len = shoulder_width*.85 + nut_height;
 
     translate([tab_slot_pair_len/2,-thickness/2,0]) {
       translate([0,-shoulder_width*0.75-nut_height/2,0])
