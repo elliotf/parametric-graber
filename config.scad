@@ -168,7 +168,6 @@ motor_wire_hole_width  = 9;
 motor_wire_hole_height = 6;
 
 /*
-*/
 motor_side             = nema14_side;
 motor_hole_spacing     = nema14_hole_spacing;
 motor_screw_diam       = nema14_screw_diam;
@@ -178,6 +177,7 @@ motor_shoulder_diam    = nema14_shoulder_diam;
 motor_len              = motor_side;
 motor_wire_hole_width  = 9;
 motor_wire_hole_height = 6;
+*/
 
 z_motor_side = nema14_side;
 z_motor_len = z_motor_side;
@@ -213,6 +213,9 @@ spacer = 1;
 psu_length = 215;
 psu_width = 114;
 psu_height = 50;
+
+psu_hole_spacing_x = 50;
+psu_hole_spacing_y = 150;
 
 // heated bed / build plate
 heatbed_thickness = 1;

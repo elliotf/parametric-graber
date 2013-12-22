@@ -59,7 +59,7 @@ z_motor_y_pos = skew_main_plate_to_rear+(z_motor_mount_depth/2+sheet_thickness/2
 z_motor_z_pos = -sheet_thickness;
 
 y_motor_x_pos = -y_bearing_thickness-sheet_thickness;
-y_motor_y_pos = (side_brace_total_depth/2-motor_side/2)*rear;
+y_motor_y_pos = (side_brace_total_depth/2-motor_side/2)*front;
 y_motor_z_pos = bottom_plate_z_pos+sheet_thickness/2+motor_side/2;
 
 front_face_x_pos = 0;

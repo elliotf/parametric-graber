@@ -7,8 +7,8 @@ module hole(diam,len,sides=8) {
 
 module debug_axes() {
   color("red") {
-    translate([50,0,0]) cube([100,.2,.2],center=true);
-    translate([0,50,0]) cube([.2,100,.2],center=true);
-    translate([0,0,50]) cube([.2,.2,100],center=true);
+    translate([50,0,0]) cube([100,.5,.5],center=true);
+    translate([0,50,0]) cube([.5,100,.5],center=true);
+    translate([0,0,50]) cube([.5,.5,100],center=true);
   }
 }
