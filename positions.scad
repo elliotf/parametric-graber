@@ -1,11 +1,12 @@
 include <config.scad>;
 
-z_overhead = sheet_thickness * 1.5; // bed support, y motor, y linear bearings, etc.
+z_overhead = sheet_thickness * 1.5; // bed support, y motor, y linear bearings, zip ties, etc.
+y_rod_spacing = build_x*.75;
 
 z_smooth_threaded_spacing = 17;
 
 build_x_with_overhead = build_x + 30;
-build_y_with_overhead = build_y * 1.3;
+build_y_with_overhead = build_y * 1.4;
 build_z_with_overhead = build_z + z_overhead;
 
 x_carriage_height = 60; // from prusa i3 parts

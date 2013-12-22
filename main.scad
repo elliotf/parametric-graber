@@ -115,9 +115,40 @@ module z_motor_plate() {
   }
 }
 
-module front_face() {
+module front_and_rear_face() {
   module body() {
     box_side([front_face_width,front_face_height],[0,2,2,2]);
+  }
+
+  module holes() {
+    for(side=[left,right]) {
+      translate([y_rod_spacing/2*side,front_face_height/2,0]) {
+        cube([rod_diam,rod_diam,sheet_thickness+1],center=true);
+        translate([0,-rod_diam/2,0])
+          hole(rod_diam,sheet_thickness+1,32);
+      }
+    }
+
+    screw_clearance = 12;
+    screw_clearance_x_pos = build_x/2-screw_clearance/2;
+    for(x=[screw_clearance_x_pos*left,0,screw_clearance_x_pos*right]) {
+      translate([x,front_face_height/2,0]) {
+        cube([screw_clearance,screw_clearance,sheet_thickness+1],center=true);
+        translate([0,-screw_clearance/2,0])
+          hole(screw_clearance,sheet_thickness+1,32);
+      }
+    }
+  }
+
+  color("green") difference() {
+    body();
+    holes();
+  }
+}
+
+module front_face() {
+  module body() {
+    front_and_rear_face();
   }
 
   module holes() {
@@ -131,7 +162,7 @@ module front_face() {
 
 module rear_face() {
   module body() {
-    box_side([rear_face_width,rear_face_height],[0,2,2,2]);
+    front_and_rear_face();
   }
 
   module holes() {
