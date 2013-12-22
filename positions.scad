@@ -1,16 +1,16 @@
 include <config.scad>;
 
 z_overhead = sheet_thickness * 1.5; // bed support, y motor, y linear bearings, zip ties, etc.
-y_rod_spacing = build_x*.75;
-y_bearing_spacing_y = build_y*.45;
+y_rod_spacing = build_x*.7;
+y_carriage_bearing_spacing_y = build_y*.4;
 
 z_smooth_threaded_spacing = 17;
 
 build_x_with_overhead = build_x + 30;
-build_y_with_overhead = build_y * 1.7;
+build_y_with_overhead = build_y * 1.6;
 build_z_with_overhead = build_z + z_overhead;
 
-skew_main_plate_to_rear = motor_side * .75;
+skew_main_plate_to_rear = motor_side+sheet_thickness/2;
 
 x_carriage_height = 60; // from prusa i3 parts
 
@@ -53,7 +53,11 @@ y_carriage_z_pos = -sheet_thickness/2+z_overhead;
 
 z_motor_x_pos = main_plate_width/2-sheet_thickness*2-motor_side/2;
 z_motor_y_pos = skew_main_plate_to_rear+(motor_side/2+sheet_thickness/2)*front;
-z_motor_z_pos = 0;
+z_motor_z_pos = -sheet_thickness;
+
+y_motor_x_pos = -y_bearing_thickness-sheet_thickness;
+y_motor_y_pos = (side_brace_total_depth/2-motor_side/2)*rear;
+y_motor_z_pos = bottom_plate_z_pos+sheet_thickness/2+motor_side/2;
 
 front_face_x_pos = 0;
 front_face_y_pos = (bottom_plate_depth/2+sheet_thickness/2)*front;
@@ -62,3 +66,7 @@ front_face_z_pos = bottom_plate_z_pos + front_face_height/2 + sheet_thickness/2;
 rear_face_x_pos = 0;
 rear_face_y_pos = (bottom_plate_depth/2+sheet_thickness/2)*rear;
 rear_face_z_pos = front_face_z_pos;
+
+psu_x_pos = side_brace_x_pos + 10 + psu_height/2;
+psu_y_pos = skew_main_plate_to_rear + 5 + psu_width/2;
+psu_z_pos = psu_length/2;

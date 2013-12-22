@@ -132,6 +132,14 @@ pulley_idler_bearing_diam = 16;
 pulley_idler_bearing_inner = 5;
 pulley_idler_bearing_thickness = 5;
 
+bearing_623zz_id = 3;
+bearing_623zz_od = 10;
+bearing_623zz_thickness = 4;
+
+y_bearing_od = bearing_623zz_od;
+y_bearing_id = bearing_623zz_id;
+y_bearing_thickness = bearing_623zz_thickness;
+
 // Motor
 nema17_side = 43;
 nema17_len = nema17_side;

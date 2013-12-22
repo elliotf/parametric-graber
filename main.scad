@@ -32,7 +32,8 @@ module main_plate() {
       cube([side_brace_x_pos*2+sheet_thickness,side_brace_horizontal_height*2-sheet_thickness*2,sheet_thickness + 1],center=true);
 
       for(side=[left,right]) {
-        translate([side_brace_x_pos*side,0,0]) cube([sheet_thickness,side_brace_horizontal_height*2,sheet_thickness + 1],center=true);
+        translate([side_brace_x_pos*side,0,0])
+          cube([sheet_thickness,side_brace_horizontal_height*2,sheet_thickness + 1],center=true);
       }
     }
   }
@@ -44,16 +45,20 @@ module main_plate() {
 }
 
 module side_brace() {
+  bottom = -side_brace_total_height/2;
+
   module body() {
     translate([-side_brace_total_depth/2+side_brace_vertical_depth/2,side_brace_horizontal_height/2,0]) {
       box_side([side_brace_vertical_depth, side_brace_total_height-side_brace_horizontal_height, sheet_thickness],[0,0,0,1]);
     }
 
-    translate([0,-side_brace_total_height/2+side_brace_horizontal_height/2,0])
+    translate([0,bottom+side_brace_horizontal_height/2,0])
       box_side([side_brace_total_depth,side_brace_horizontal_height],[0,1,2,1]);
   }
 
   module holes() {
+    translate([-z_motor_y_pos-sheet_thickness/2,bottom+side_brace_horizontal_height-sheet_thickness/2,0])
+      cube([motor_side+sheet_thickness+0.05,sheet_thickness+0.05,sheet_thickness+1],center=true);
   }
 
   color("red") difference() {
@@ -68,10 +73,17 @@ module y_carriage() {
   }
 
   module holes() {
+    bearing_width_at_depth = bearing_diam * .6; // TODO: calculate this better using a chord
     for(side=[left,right]) {
       for(end=[front,rear]) {
-        translate([y_rod_spacing/2*side,y_bearing_spacing_y/2*end,0])
-          cube([bearing_diam*.6,bearing_len,sheet_thickness+1],center=true);
+        translate([y_rod_spacing/2*side,y_carriage_bearing_spacing_y/2*end,0]) {
+          cube([bearing_width_at_depth,bearing_len,sheet_thickness+1],center=true);
+
+          for(zip_tie_side=[left,right]) {
+            translate([(bearing_width_at_depth/2+3+zip_tie_width/2)*zip_tie_side,0,0])
+              cube([zip_tie_thickness,zip_tie_width,sheet_thickness+1],center=true);
+          }
+        }
       }
     }
   }
@@ -88,6 +100,17 @@ module bottom_plate() {
   }
 
   module holes() {
+    material_width_remain = 55;
+    hole_radius = 10;
+
+    hull() {
+      for(side=[left,right]) {
+        for(end=[front,rear]) {
+          translate([(bottom_plate_width/2-material_width_remain-hole_radius)*side,(bottom_plate_depth/2-material_width_remain-hole_radius)*end,0])
+            hole(hole_radius,sheet_thickness+1,16);
+        }
+      }
+    }
   }
 
   color("lightblue") difference() {
@@ -135,7 +158,7 @@ module front_and_rear_face() {
       }
     }
 
-    screw_clearance = 12;
+    screw_clearance = 10;
     screw_clearance_x_pos = build_x/2-screw_clearance/2;
     for(x=[screw_clearance_x_pos*left,0,screw_clearance_x_pos*right]) {
       translate([x,front_face_height/2,0]) {
@@ -181,13 +204,14 @@ module rear_face() {
 }
 
 module assembly() {
-  translate([0,main_plate_y_pos,main_plate_z_pos]) rotate([90,0,0]) main_plate();
+  translate([0,main_plate_y_pos,main_plate_z_pos]) rotate([90,0,0])
+    main_plate();
 
   for(side=[left,right]) {
-    translate([z_motor_x_pos*side,z_motor_y_pos,0]) {
+    translate([z_motor_x_pos*side,z_motor_y_pos,z_motor_z_pos]) {
       % motor();
 
-      translate([0,0,sheet_thickness/2]) mirror([1-side,0,0])
+      translate([0,0,sheet_thickness/2+0.05]) mirror([1-side,0,0])
         z_motor_plate();
     }
 
@@ -198,13 +222,18 @@ module assembly() {
   translate([front_face_x_pos,front_face_y_pos,front_face_z_pos]) rotate([90,0,0]) front_face();
   translate([rear_face_x_pos,rear_face_y_pos,rear_face_z_pos]) rotate([90,0,0]) rear_face();
 
-  translate([-sheet_thickness*1.5,(build_y_with_overhead/2-motor_side/2)*rear,bottom_plate_z_pos+sheet_thickness/2+motor_side/2]) {
+  //translate([-sheet_thickness*1.5,(build_y_with_overhead/2-motor_side/2)*front,bottom_plate_z_pos+sheet_thickness/2+motor_side/2]) {
+  translate([y_motor_x_pos,y_motor_y_pos,y_motor_z_pos]) {
     % rotate([0,90,0]) motor();
   }
 
-  translate([y_carriage_x_pos,y_carriage_y_pos,y_carriage_z_pos]) y_carriage();
+  translate([y_carriage_x_pos,y_carriage_y_pos+(build_y/2*0),y_carriage_z_pos]) y_carriage();
 
   translate([bottom_plate_x_pos,bottom_plate_y_pos,bottom_plate_z_pos]) bottom_plate();
+
+  translate([psu_x_pos,psu_y_pos,psu_z_pos]) {
+    % cube([psu_height,psu_width,psu_length],center=true);
+  }
 }
 
 assembly();
