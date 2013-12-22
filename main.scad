@@ -46,7 +46,7 @@ module main_plate() {
 module side_brace() {
   module body() {
     translate([-side_brace_total_depth/2+side_brace_vertical_depth/2,side_brace_horizontal_height/2,0]) {
-      box_side([build_y_with_overhead/2, side_brace_total_height-side_brace_horizontal_height, sheet_thickness],[0,0,0,1]);
+      box_side([side_brace_vertical_depth, side_brace_total_height-side_brace_horizontal_height, sheet_thickness],[0,0,0,1]);
     }
 
     translate([0,-side_brace_total_height/2+side_brace_horizontal_height/2,0])
@@ -62,12 +62,18 @@ module side_brace() {
   }
 }
 
-module bed_support() {
+module y_carriage() {
   module body() {
     cube([build_x,build_y,sheet_thickness],center=true);
   }
 
   module holes() {
+    for(side=[left,right]) {
+      for(end=[front,rear]) {
+        translate([y_rod_spacing/2*side,y_bearing_spacing_y/2*end,0])
+          cube([bearing_diam*.6,bearing_len,sheet_thickness+1],center=true);
+      }
+    }
   }
 
   difference() {
@@ -196,7 +202,7 @@ module assembly() {
     % rotate([0,90,0]) motor();
   }
 
-  translate([bed_support_x_pos,bed_support_y_pos,bed_support_z_pos]) bed_support();
+  translate([y_carriage_x_pos,y_carriage_y_pos,y_carriage_z_pos]) y_carriage();
 
   translate([bottom_plate_x_pos,bottom_plate_y_pos,bottom_plate_z_pos]) bottom_plate();
 }
