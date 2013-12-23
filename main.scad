@@ -448,10 +448,15 @@ module assembly() {
       z_rod_top_brace();
 
     // y rods
-    translate([y_rod_spacing/2*side,0,-rod_diam/2]) rotate([90,0,0]) {
-      color("grey", 0.5)
+    translate([y_rod_spacing/2*side,0,-rod_diam/2]) color("grey", 0.5) {
+      rotate([90,0,0])
         cylinder(r=rod_diam/2,h=side_brace_total_depth + sheet_thickness*2 + 0.05,center=true);
+
+      for(y=[-1,1]) {
+        % translate([0,y_carriage_bearing_spacing_y/2*y,0]) bearing();
+      }
     }
+
 
     // z rods
     translate([z_smooth_rod_x_pos*side,z_smooth_rod_y_pos,z_smooth_rod_z_pos]) {
@@ -505,7 +510,7 @@ module bearing_zip_tie() {
 
 module bearing() {
   rotate([90,0,0]) rotate([0,0,22.5])
-    cylinder(r=da8*bearing_diam,h=bearing_len,center=true,$fn=8);
+    cylinder(r=da8*bearing_diam,h=bearing_len,center=true,$fn=16);
 }
 
 module bearing_cavity() {

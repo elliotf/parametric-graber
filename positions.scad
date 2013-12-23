@@ -1,6 +1,6 @@
 include <config.scad>;
 
-z_overhead = sheet_thickness * 1.5; // bed support, y motor, y linear bearings, zip ties, etc.
+z_overhead = sheet_thickness * 2; // bed support, y motor, y linear bearings, zip ties, etc.
 y_rod_spacing = build_x*.6;
 y_carriage_bearing_spacing_y = build_y*.4;
 
@@ -58,7 +58,7 @@ bottom_plate_z_pos = -side_brace_horizontal_height-sheet_thickness/2;
 
 y_carriage_x_pos = 0;
 y_carriage_y_pos = 0;
-y_carriage_z_pos = -sheet_thickness/2+z_overhead;
+y_carriage_z_pos = sheet_thickness/2+bearing_diam/2-rod_diam/2-1;
 
 z_motor_x_pos = side_brace_x_pos + sheet_thickness/2 + z_motor_mount_width/2;
 z_motor_y_pos = skew_main_plate_to_rear+(z_motor_mount_depth/2+sheet_thickness/2+space_behind_z_motor/2)*front;

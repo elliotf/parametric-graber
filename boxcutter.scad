@@ -3,7 +3,7 @@ bc_screw_diam=3;
 bc_nut_diam=5.45;
 bc_shoulder_width=6;
 bc_thickness=6;
-bc_tab_from_end_dist=bc_shoulder_width*4.5;
+bc_tab_from_end_dist=bc_shoulder_width*3.5;
 
 WITH_HOLES = 1;
 NO_HOLES = 0;
@@ -27,7 +27,7 @@ module bc_screw_nut_hole() {
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.01;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
 
   // END DUPE
@@ -52,7 +52,7 @@ module bc_offset_screw_nut_hole() {
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.01;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
 
   // END DUPE
@@ -86,7 +86,7 @@ module bc_position_along_line(to_fill=0) {
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.01;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
 
   // END DUPE
@@ -147,7 +147,7 @@ module bc_tab_pair(with_hole=WITH_HOLES) {
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.01;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
 
   WITH_HOLES = 1;
@@ -175,7 +175,7 @@ module bc_offset_tab_pair(with_hole=NO_HOLES) {
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.01;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
 
   WITH_HOLES = 1;
@@ -216,7 +216,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.01;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
 
   // END DUPE
