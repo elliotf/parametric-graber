@@ -8,3 +8,21 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 * Because really, who doesn't want a 6"x6" graber with nema14 motors?
 * I grew tired of manually editing vector files in inkscape
+
+## Still TODO:
+
+* Clearance for X motor on side of main frame
+* Holes in Y carriage for bed mounting
+* Holes in Y carriage for wire tiedown
+* Holes in side braces for mounting electronics
+* Holes in side braces for wiring passthrough
+* Holes in side braces for PSU
+* Holes in bottom for wire tiedown
+* Holes in bottom for screw feet
+* Top rear brace
+* Spool mount
+* Make cut files
+* Check parametric-ness of 6mm rods
+* Check parametric-ness of 6x6x6 build volume
+* Check parametric-ness of NEMA14 motors (mostly Y idler is the problem)
+* Make BOM, possibly generate from scad a la nophead (praised be his name!)
