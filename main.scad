@@ -27,6 +27,7 @@ module main_plate() {
 
   module holes() {
     translate([0,-main_plate_height/2,0]) {
+      // main build area void
       cube([build_x_with_overhead,(main_plate_height-x_carriage_height)*2,sheet_thickness + 1],center=true);
 
       // part of side brace notch
@@ -42,6 +43,16 @@ module main_plate() {
           cube([motor_shoulder_diam+sheet_thickness*2,sheet_thickness*2,sheet_thickness+0.05],center=true);
 
           translate([0,-sheet_thickness/2,0]) bc_screw_nut_hole();
+        }
+
+        // motor mount holes
+        translate([0,side_brace_horizontal_height-sheet_thickness/2,0]) {
+          translate([z_motor_x_pos*side,0,0])
+            scale([1,1,1.1]) bc_tab_pair(1);
+
+          // motor brace holes
+          translate([z_motor_brace_x_pos*side,-sheet_thickness/2-z_motor_brace_height/2,0]) rotate([0,0,90])
+            scale([1,1,1.1]) bc_tab_pair(1);
         }
       }
     }
