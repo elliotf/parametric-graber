@@ -75,7 +75,7 @@ z_rod_top_brace_x_pos = z_smooth_rod_x_pos;
 z_rod_top_brace_y_pos = z_motor_y_pos;
 z_rod_top_brace_z_pos = side_brace_vertical_height - sheet_thickness/2;
 
-y_motor_x_pos = -y_bearing_thickness-sheet_thickness;
+y_motor_x_pos = -y_bearing_thickness-sheet_thickness-1;
 y_motor_y_pos = (side_brace_total_depth/2-motor_side/2)*front;
 y_motor_z_pos = bottom_plate_z_pos+sheet_thickness/2+motor_side/2;
 
