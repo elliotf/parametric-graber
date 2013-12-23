@@ -281,8 +281,7 @@ module z_rod_top_brace() {
 
   module body() {
     hull() {
-      rotate([0,0,22.5])
-        hole(sheet_thickness*5,sheet_thickness,12);
+      hole(sheet_thickness*5,sheet_thickness,12);
 
       translate([0,main_plate_y,0]) {
         translate([-z_smooth_threaded_spacing-z_motor_mount_width/2-sheet_thickness/2,sheet_thickness*2,0])
@@ -320,9 +319,32 @@ module z_rod_top_brace() {
     // side brace screw hole
     translate([-z_smooth_threaded_spacing-z_motor_mount_width/2-sheet_thickness/2,main_plate_y+sheet_thickness*3,0])
       hole(3,sheet_thickness+0.05,10);
+
+    // retainer screw hole
+    translate([0,z_rod_retainer_rod_screw_dist,0]) hole(3,sheet_thickness+0.05,8);
   }
 
-  difference() {
+  color("orange") difference() {
+    body();
+    holes();
+  }
+}
+
+module z_rod_retainer() {
+  module body() {
+    hull() {
+      hole(rod_diam*2,sheet_thickness,12);
+
+      translate([0,z_rod_retainer_rod_screw_dist,0]) rotate([0,0,22.5])
+        hole(3*3,sheet_thickness,8);
+    }
+  }
+
+  module holes() {
+    translate([0,z_rod_retainer_rod_screw_dist,0]) hole(3,sheet_thickness+0.05,8);
+  }
+
+  color("green") difference() {
     body();
     holes();
   }
@@ -557,8 +579,13 @@ module assembly() {
     translate([side_brace_x_pos*side,side_brace_y_pos,side_brace_z_pos]) rotate([0,0,-90]) rotate([90,0,0])
       side_brace();
 
-    color("orange") translate([z_rod_top_brace_x_pos*side,z_rod_top_brace_y_pos,z_rod_top_brace_z_pos+0.05]) mirror([1-side,0,0])
-      z_rod_top_brace();
+    translate([z_rod_top_brace_x_pos*side,z_rod_top_brace_y_pos,z_rod_top_brace_z_pos+0.05]) {
+      mirror([1-side,0,0])
+        z_rod_top_brace();
+
+      translate([0,0,sheet_thickness+0.05])
+        z_rod_retainer();
+    }
 
     for(end=[front,rear]) {
       color("orange") translate([y_rod_spacing/2*side,(rear_face_y_pos+sheet_thickness)*end,-rod_diam/2]) rotate([90,0,0])
