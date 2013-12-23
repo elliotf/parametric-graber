@@ -1,6 +1,6 @@
 include <config.scad>;
 include <positions.scad>;
-use <boxcutter.scad>;
+include <boxcutter.scad>;
 use <util.scad>;
 
 //% translate([0,0,build_z/2+z_overhead+0.05]) cube([build_x,build_y,build_z],center=true);
@@ -54,6 +54,12 @@ module main_plate() {
           translate([z_motor_brace_x_pos*side,-sheet_thickness/2-z_motor_brace_height/2,0]) rotate([0,0,90])
             scale([1,1,1.1]) bc_tab_pair(1);
         }
+      }
+    }
+
+    for(side=[left,right]) {
+      translate([side_brace_x_pos*side,main_plate_height/2-side_brace_vertical_height/2,0]) {
+        rotate([0,0,90]) scale([1,1,1.1]) bc_position_along_line(side_brace_vertical_height-bc_tab_from_end_dist*2) bc_offset_tab_pair(1);
       }
     }
   }

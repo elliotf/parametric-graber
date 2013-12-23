@@ -3,6 +3,7 @@ bc_screw_diam=3;
 bc_nut_diam=5.45;
 bc_shoulder_width=6;
 bc_thickness=6;
+bc_tab_from_end_dist=bc_shoulder_width*4.5;
 
 WITH_HOLES = 1;
 NO_HOLES = 0;
@@ -12,11 +13,12 @@ function bc_hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
 module bc_screw_nut_hole() {
   // DUPE
 
-  tab_len        = bc_tab_len;
-  screw_diam     = bc_screw_diam;
-  nut_diam       = bc_nut_diam;
-  shoulder_width = bc_shoulder_width;
-  thickness      = bc_thickness;
+  tab_len           = bc_tab_len;
+  screw_diam        = bc_screw_diam;
+  nut_diam          = bc_nut_diam;
+  shoulder_width    = bc_shoulder_width;
+  thickness         = bc_thickness;
+  tab_from_end_dist = bc_tab_from_end_dist;
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
@@ -27,7 +29,6 @@ module bc_screw_nut_hole() {
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
 
   // END DUPE
 
@@ -37,11 +38,12 @@ module bc_screw_nut_hole() {
 module bc_offset_screw_nut_hole() {
   // DUPE
 
-  tab_len        = bc_tab_len;
-  screw_diam     = bc_screw_diam;
-  nut_diam       = bc_nut_diam;
-  shoulder_width = bc_shoulder_width;
-  thickness      = bc_thickness;
+  tab_len           = bc_tab_len;
+  screw_diam        = bc_screw_diam;
+  nut_diam          = bc_nut_diam;
+  shoulder_width    = bc_shoulder_width;
+  thickness         = bc_thickness;
+  tab_from_end_dist = bc_tab_from_end_dist;
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
@@ -52,7 +54,6 @@ module bc_offset_screw_nut_hole() {
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
 
   // END DUPE
 
@@ -71,11 +72,12 @@ module bc_offset_screw_nut_hole() {
 module bc_position_along_line(to_fill=0) {
   // DUPE
 
-  tab_len        = bc_tab_len;
-  screw_diam     = bc_screw_diam;
-  nut_diam       = bc_nut_diam;
-  shoulder_width = bc_shoulder_width;
-  thickness      = bc_thickness;
+  tab_len           = bc_tab_len;
+  screw_diam        = bc_screw_diam;
+  nut_diam          = bc_nut_diam;
+  shoulder_width    = bc_shoulder_width;
+  thickness         = bc_thickness;
+  tab_from_end_dist = bc_tab_from_end_dist;
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
@@ -86,7 +88,6 @@ module bc_position_along_line(to_fill=0) {
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
 
   // END DUPE
 
@@ -132,11 +133,12 @@ module bc_position_along_line(to_fill=0) {
 module bc_tab_pair(with_hole=WITH_HOLES) {
   // DUPE
 
-  tab_len        = bc_tab_len;
-  screw_diam     = bc_screw_diam;
-  nut_diam       = bc_nut_diam;
-  shoulder_width = bc_shoulder_width;
-  thickness      = bc_thickness;
+  tab_len           = bc_tab_len;
+  screw_diam        = bc_screw_diam;
+  nut_diam          = bc_nut_diam;
+  shoulder_width    = bc_shoulder_width;
+  thickness         = bc_thickness;
+  tab_from_end_dist = bc_tab_from_end_dist;
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
@@ -147,7 +149,6 @@ module bc_tab_pair(with_hole=WITH_HOLES) {
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
 
   WITH_HOLES = 1;
   NO_HOLES = 0;
@@ -160,11 +161,12 @@ module bc_tab_pair(with_hole=WITH_HOLES) {
 module bc_offset_tab_pair(with_hole=NO_HOLES) {
   // DUPE
 
-  tab_len        = bc_tab_len;
-  screw_diam     = bc_screw_diam;
-  nut_diam       = bc_nut_diam;
-  shoulder_width = bc_shoulder_width;
-  thickness      = bc_thickness;
+  tab_len           = bc_tab_len;
+  screw_diam        = bc_screw_diam;
+  nut_diam          = bc_nut_diam;
+  shoulder_width    = bc_shoulder_width;
+  thickness         = bc_thickness;
+  tab_from_end_dist = bc_tab_from_end_dist;
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
@@ -175,7 +177,6 @@ module bc_offset_tab_pair(with_hole=NO_HOLES) {
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
 
   WITH_HOLES = 1;
   NO_HOLES = 0;
@@ -199,11 +200,12 @@ module bc_offset_tab_pair(with_hole=NO_HOLES) {
 module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
   // DUPE
 
-  tab_len        = bc_tab_len;
-  screw_diam     = bc_screw_diam;
-  nut_diam       = bc_nut_diam;
-  shoulder_width = bc_shoulder_width;
-  thickness      = bc_thickness;
+  tab_len           = bc_tab_len;
+  screw_diam        = bc_screw_diam;
+  nut_diam          = bc_nut_diam;
+  shoulder_width    = bc_shoulder_width;
+  thickness         = bc_thickness;
+  tab_from_end_dist = bc_tab_from_end_dist;
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
@@ -216,7 +218,6 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
   pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
 
   // END DUPE
 
@@ -307,6 +308,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
   }
 }
 
+/*
 vol = [250,200,73];
 
 width = vol[0];
@@ -369,3 +371,4 @@ translate([0,(depth/2+thickness/2+thickness*2)*front,0]) rotate([90,0,0])
 // rear
 translate([0,(depth/2+thickness/2+thickness*2)*rear,0]) rotate([90,0,0])
   box_side([width,height],[1,1,2,1]);
+  */
