@@ -23,9 +23,9 @@ line_diam = .5;
 line_cube = [line_diam,line_diam,line_diam];
 
 // Printer size
-build_x = 600;
-build_y = 600;
-build_z = 600;
+build_x = 400;
+build_y = 400;
+build_z = 400;
 
 build_x = 200;
 build_y = 200;
@@ -34,7 +34,7 @@ build_z = 200;
 /*
 build_x = 150;
 build_y = 150;
-build_z = 150;
+build_z = 200;
 
 build_x = 100;
 build_y = 100;
