@@ -383,17 +383,8 @@ module front_and_rear_face() {
 
       // this would probably be bad with plywood; it would probably delaminate
       // zip tie holes
-      translate([0,front_face_height/2-rod_diam/2,0]) {
-        translate([y_rod_spacing/2*side,-rod_diam/2+zip_tie_width/2,0]) {
-          for(side=[left,right]) {
-            translate([(rod_diam/2+y_rod_zip_tie_space/2)*side,0,0])
-              cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
-          }
-
-          translate([0,-rod_diam/2-3,0])
-            hole(3,sheet_thickness+0.05,8);
-        }
-      }
+      translate([y_rod_spacing/2*side,front_face_height/2-rod_diam/2,0])
+        y_rod_retainer_zip_tie_holes();
     }
 
     for(side=[left,right]) {
