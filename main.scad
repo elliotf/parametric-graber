@@ -124,6 +124,25 @@ module side_brace() {
     to_remove = top_brace_tab_area;
     translate([-side_brace_total_depth/2+to_remove/2-0.05,side_brace_total_height/2-to_remove/2+0.05,0])
       cube([side_brace_horizontal_height,side_brace_horizontal_height,sheet_thickness+0.05],center=true);
+
+    module wire_hole() {
+      hole_height = 8;
+      hull() {
+        for(side=[left,right]) {
+          translate([hole_height/2*side,0,0]) rotate([0,0,22.5])
+            hole(hole_height,sheet_thickness+0.05,8);
+        }
+      }
+    }
+
+    // wiring passthrough
+    translate([-side_brace_total_depth/2+side_brace_vertical_depth,-side_brace_total_height/2+sheet_thickness*2,0]) {
+      for(x=[-10,-60]) {
+        translate([x,0,0]) {
+          wire_hole();
+        }
+      }
+    }
   }
 
   color("red") {
@@ -133,7 +152,7 @@ module side_brace() {
     }
 
     translate([-z_motor_mount_y_pos-sheet_thickness/2+sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/2-sheet_thickness,0])
-      box_side([z_motor_mount_depth+sheet_thickness*3,motor_len,sheet_thickness],[1,0,0,0]);
+      box_side([z_motor_mount_depth+sheet_thickness*2,motor_len,sheet_thickness],[1,0,0,0]);
 
     translate([-side_brace_total_depth/2+top_brace_tab_area/2,side_brace_total_height/2-top_brace_tab_area/2,0])
       box_side([top_brace_tab_area,top_brace_tab_area],[0,1,0,0]);
@@ -324,17 +343,42 @@ module front_and_rear_face() {
       }
     }
 
-    screw_clearance = 10;
-    screw_clearance_scale = 2;
-    screw_clearance_x_pos = build_x/2-screw_clearance*screw_clearance_scale/2;
-    for(x=[screw_clearance_x_pos*left,0,screw_clearance_x_pos*right]) {
-      translate([x,front_face_height/2,0]) {
-        hull() {
+    clearance_depth = 8;
+    clearance_x_pos = y_rod_spacing/2+rod_diam/2+5+clearance_width/2;
+
+    hull() {
+      for(side=[left,right]) {
+        translate([clearance_depth*side,front_face_height/2,0]) {
+          rotate([0,0,22.5])
+            hole(12,sheet_thickness+0.05,8);
+        }
+      }
+    }
+
+    translate([0,front_face_height/2-4,0]) rotate([0,0,22.5])
+      hole(10,sheet_thickness+0.05,8);
+
+    for(side=[left,right]) {
+      // bed mount screw clearance
+      hull() {
+        translate([side*(build_y/2),front_face_height/2,0]) rotate([0,0,22.5])
+          hole(clearance_depth*2,sheet_thickness+0.05,8);
+
+        translate([side*(y_rod_spacing/2+rod_diam/2+y_rod_zip_tie_space+clearance_depth),front_face_height/2,0]) rotate([0,0,22.5])
+          hole(clearance_depth*2,sheet_thickness+0.05,8);
+      }
+
+      // this would probably be bad with plywood; it would probably delaminate
+      // zip tie holes
+      translate([0,front_face_height/2-rod_diam/2,0]) {
+        translate([y_rod_spacing/2*side,-rod_diam/2+zip_tie_width/2,0]) {
           for(side=[left,right]) {
-            translate([4*side,0,0])
-              rotate([0,0,22.5])
-                hole(sheet_thickness*2,sheet_thickness+0.05,8);
+            translate([(rod_diam/2+y_rod_zip_tie_space/2)*side,0,0])
+              cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
           }
+
+          translate([0,-rod_diam/2-3,0])
+            hole(3,sheet_thickness+0.05,8);
         }
       }
     }
@@ -346,6 +390,46 @@ module front_and_rear_face() {
   }
 
   color("green") difference() {
+    body();
+    holes();
+  }
+}
+
+module y_rod_retainer_zip_tie_holes() {
+  // this would probably be bad with plywood; it would probably delaminate
+  // zip tie holes
+  translate([0,-rod_diam/2+zip_tie_width/2,0]) {
+    for(side=[left,right]) {
+      translate([(rod_diam/2+y_rod_zip_tie_space/2)*side,0,0])
+        cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
+    }
+
+    translate([0,-rod_diam/2-3,0])
+      hole(3,sheet_thickness+0.05,8);
+  }
+}
+
+module y_rod_retainer() {
+  width = rod_diam + y_rod_zip_tie_space*2;
+  height = rod_diam + y_rod_zip_tie_space + 2;
+
+  module body() {
+    translate([0,-y_rod_zip_tie_space/2 - 1,0])
+      cube([width,height,sheet_thickness],center=true);
+  }
+
+  module holes() {
+    hull() {
+      for(y=[-1,1]) {
+        translate([0,y*1,0]) rotate([0,0,60])
+          hole(2,sheet_thickness+0.05,6);
+      }
+    }
+
+    y_rod_retainer_zip_tie_holes();
+  }
+
+  difference() {
     body();
     holes();
   }
@@ -437,13 +521,13 @@ module assembly() {
   translate([y_motor_x_pos,y_motor_y_pos,y_motor_z_pos]) {
     % rotate([0,90,0]) motor();
     //translate([sheet_thickness/2,0,0]) rotate([0,90,0]) rotate([0,0,180])
-    translate([sheet_thickness/2,0,0]) rotate([0,90,0]) rotate([0,0,90])
+    translate([sheet_thickness/2,0,0]) rotate([0,90,0]) rotate([0,0,180])
       y_motor_mount();
   }
 
   for(side=[left,right]) {
     translate([(y_motor_x_pos+sheet_thickness/2)*side,-y_motor_y_pos,y_motor_z_pos]) {
-      rotate([0,90,0]) rotate([0,0,180])
+      rotate([0,90,0]) rotate([0,0,90])
         color("purple") y_idler();
     }
   }
@@ -471,6 +555,11 @@ module assembly() {
 
     color("orange") translate([z_rod_top_brace_x_pos*side,z_rod_top_brace_y_pos,z_rod_top_brace_z_pos+0.05]) mirror([1-side,0,0])
       z_rod_top_brace();
+
+    for(end=[front,rear]) {
+      color("orange") translate([y_rod_spacing/2*side,(rear_face_y_pos+sheet_thickness)*end,-rod_diam/2]) rotate([90,0,0])
+        y_rod_retainer();
+    }
 
     // y rods
     translate([y_rod_spacing/2*side,0,-rod_diam/2]) color("grey", 0.5) {

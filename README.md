@@ -11,11 +11,12 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Still left TODO:
 
-* Holes in Y carriage for bed mounting
-* Holes in Y carriage for wire tiedown
 * Holes in side braces for mounting electronics
 * Holes in side braces for wiring passthrough
 * Holes in side braces for PSU
+* Holes in Y carriage for belt clamp
+* Holes in Y carriage for bed mounting
+* Holes in Y carriage for wire tiedown
 * Holes in bottom for wire tiedown
 * Holes in bottom for screw feet
 * Spool mount
@@ -23,5 +24,6 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 * Check parametric-ness of 6mm rods
 * Check parametric-ness of 6x6x6 build volume
 * Check parametric-ness of NEMA14 motors (mostly Y idler is the problem)
+* Improve parametric-ness of fasteners (frame, y rod retainer)
 * Add printed parts
 * Make BOM, possibly generate from scad a la nophead (praised be his name!)
