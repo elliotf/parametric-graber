@@ -18,8 +18,6 @@ module bc_screw_nut_hole() {
   nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
-  echo("Screw length: ", thickness + shoulder_width + nut_height);
-
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
   space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
@@ -44,8 +42,6 @@ module bc_offset_screw_nut_hole() {
   std_nut_height = 2.5;
   nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
-
-  echo("Screw length: ", thickness + shoulder_width + nut_height);
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
@@ -80,8 +76,6 @@ module position_along_line(to_fill=0) {
   std_nut_height = 2.5;
   nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
-
-  echo("Screw length: ", thickness + shoulder_width + nut_height);
 
   tab_slot_pair_space = tab_len * 1.5;
   tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
@@ -182,12 +176,12 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
   function offset_for_side(side) = dimensions[1-side%2]/2 + thickness/2;
   function len_for_side(side) = dimensions[side%2];
 
-  module tab() {
-    translate([tab_len/2,0,0])
-      cube([tab_len,thickness+0.05,thickness],center=true);
-  }
-
   module tab_pair(with_hole=NO_HOLES) {
+    module tab() {
+      translate([tab_len/2,0,0])
+        cube([tab_len,thickness+0.05,thickness],center=true);
+    }
+
     tab();
     translate([tab_len+tab_slot_pair_space,0,0]) tab();
 
