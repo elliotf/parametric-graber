@@ -15,7 +15,7 @@ skew_main_plate_to_rear = nema17_side+sheet_thickness/2+space_behind_z_motor;
 
 x_carriage_height = 60; // from prusa i3 parts
 
-z_motor_mount_width = nema17_side;
+z_motor_mount_width = nema17_side + 2;
 z_motor_mount_depth = nema17_side+space_behind_z_motor;
 
 z_motor_brace_depth = z_motor_mount_depth;
