@@ -183,7 +183,7 @@ module z_rod_top_brace() {
   module body() {
     hull() {
       rotate([0,0,22.5])
-        hole(rod_diam*4,sheet_thickness,8);
+        hole(rod_diam*4,sheet_thickness,16);
 
       translate([0,z_motor_mount_depth/2+sheet_thickness/2,0]) {
         translate([-z_smooth_threaded_spacing-z_motor_mount_width/2-sheet_thickness/2,sheet_thickness*2,0])
@@ -201,15 +201,21 @@ module z_rod_top_brace() {
 
     total_width = z_motor_mount_width + sheet_thickness*4;
     slot_width = (total_width - motor_shoulder_diam - sheet_thickness*2)/2;
-    translate([-z_smooth_threaded_spacing,z_motor_mount_depth/2+sheet_thickness/2,0]) {
-      // main plate screw hole
-      hole(3,sheet_thickness+1,10);
+    translate([-z_smooth_threaded_spacing,0,0]) {
+      translate([0,z_motor_mount_depth/2+sheet_thickness/2,0]) {
+        // main plate screw hole
+        hole(3,sheet_thickness+1,10);
 
-      // main plate slots
-      for(side=[left,right]) {
-        translate([(total_width/2-slot_width/2)*side,0,0])
-          cube([slot_width,sheet_thickness,sheet_thickness+0.05],center=true);
+        // main plate slots
+        for(side=[left,right]) {
+          translate([(total_width/2-slot_width/2)*side,0,0])
+            cube([slot_width,sheet_thickness,sheet_thickness+0.05],center=true);
+        }
       }
+
+      rotate([0,0,22.5]) hole(rod_diam*2,sheet_thickness+1,16);
+      translate([-rod_diam*2,0,0]) cube([rod_diam*4,rod_diam*2,sheet_thickness+1],center=true);
+      translate([0,-rod_diam*2,0]) cube([rod_diam*2,rod_diam*4,sheet_thickness+1],center=true);
     }
 
     // side brace screw hole
