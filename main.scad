@@ -114,6 +114,10 @@ module side_brace() {
 
     translate([0,bottom+side_brace_horizontal_height/2,0])
       box_side([side_brace_total_depth,side_brace_horizontal_height],[0,1,2,1]);
+
+    filler_height = side_brace_vertical_height-top_rear_brace_height;
+    translate([-side_brace_total_depth/2-sheet_thickness/2+0.05,0,0])
+      cube([sheet_thickness+0.05,filler_height,sheet_thickness],center=true);
   }
 
   top_brace_tab_area = side_brace_horizontal_height;
