@@ -347,6 +347,28 @@ module y_motor_mount() {
   }
 }
 
+module y_idler() {
+  module body() {
+    intersection() {
+      box_side([motor_side,motor_side],[0,1,1,0]);
+    }
+  }
+
+  module holes() {
+    diagonal = sqrt(pow(motor_side,2)*2);
+    offset = motor_side*.6+sheet_thickness*.6;
+    translate([offset,offset,0]) rotate([0,0,45])
+      cube([diagonal,diagonal,sheet_thickness+0.05],center=true);
+
+    hole(3,sheet_thickness+0.05,10);
+  }
+
+  difference() {
+    body();
+    holes();
+  }
+}
+
 module assembly() {
   translate([0,main_plate_y_pos,main_plate_z_pos]) rotate([90,0,0])
     main_plate();
@@ -361,6 +383,13 @@ module assembly() {
     //translate([sheet_thickness/2,0,0]) rotate([0,90,0]) rotate([0,0,180])
     translate([sheet_thickness/2,0,0]) rotate([0,90,0]) rotate([0,0,90])
       y_motor_mount();
+  }
+
+  for(side=[left,right]) {
+    translate([(y_motor_x_pos+sheet_thickness/2)*side,-y_motor_y_pos,y_motor_z_pos]) {
+      rotate([0,90,0]) rotate([0,0,180])
+        color("purple") y_idler();
+    }
   }
 
   translate([y_carriage_x_pos,y_carriage_y_pos+(build_y/2*0),y_carriage_z_pos]) y_carriage();
