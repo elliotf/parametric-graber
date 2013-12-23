@@ -21,7 +21,7 @@ z_motor_brace_depth = z_motor_mount_depth;
 z_motor_brace_height = z_motor_brace_depth;
 
 side_brace_vertical_depth = build_y_with_overhead/2-skew_main_plate_to_rear;
-side_brace_horizontal_height = sheet_thickness*2+motor_side;
+side_brace_horizontal_height = sheet_thickness+motor_side;
 
 main_plate_width = build_x_with_overhead + sheet_thickness*4 + (sheet_thickness*2 + z_motor_mount_width)*2;
 main_plate_height = build_z_with_overhead + x_carriage_height + side_brace_horizontal_height;

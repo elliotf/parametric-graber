@@ -55,6 +55,15 @@ module main_plate() {
           translate([z_motor_brace_x_pos*side,-sheet_thickness/2-z_motor_brace_height/2,0]) rotate([0,0,90])
             scale([1,1,1.1]) bc_tab_pair(1);
         }
+
+        translate([(z_motor_x_pos+4)*side,0,0])
+          hull() {
+            for(side=[left,right]) {
+              translate([4*side,0,0])
+                rotate([0,0,22.5])
+                  hole(8,sheet_thickness+0.05,8);
+            }
+          }
       }
     }
 
@@ -213,14 +222,14 @@ module z_rod_top_brace() {
   module body() {
     hull() {
       rotate([0,0,22.5])
-        hole(rod_diam*4,sheet_thickness,16);
+        hole(sheet_thickness*5,sheet_thickness,12);
 
       translate([0,z_motor_mount_depth/2+sheet_thickness/2,0]) {
         translate([-z_smooth_threaded_spacing-z_motor_mount_width/2-sheet_thickness/2,sheet_thickness*2,0])
           cube([sheet_thickness*3,sheet_thickness*7,sheet_thickness],center=true);
 
-        translate([0,sheet_thickness,0])
-          cube([rod_diam*4,sheet_thickness,sheet_thickness],center=true);
+        translate([-z_smooth_threaded_spacing,sheet_thickness,0])
+          cube([z_motor_mount_width+sheet_thickness*4,sheet_thickness,sheet_thickness],center=true);
       }
     }
   }
@@ -278,10 +287,12 @@ module front_and_rear_face() {
     screw_clearance_x_pos = build_x/2-screw_clearance*screw_clearance_scale/2;
     for(x=[screw_clearance_x_pos*left,0,screw_clearance_x_pos*right]) {
       translate([x,front_face_height/2,0]) {
-        scale([screw_clearance_scale,1,1]) {
-          cube([screw_clearance,screw_clearance,sheet_thickness+0.05],center=true);
-          translate([0,-screw_clearance/2,0]) rotate([0,0,18])
-            hole(screw_clearance,sheet_thickness+0.05,10);
+        hull() {
+          for(side=[left,right]) {
+            translate([4*side,0,0])
+              rotate([0,0,22.5])
+                hole(sheet_thickness*2,sheet_thickness+0.05,8);
+          }
         }
       }
     }

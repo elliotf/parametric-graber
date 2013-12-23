@@ -87,13 +87,13 @@ bearing_groove_width   = lm8uu_bearing_groove_width;
 bearing_groove_depth   = lm8uu_bearing_groove_depth;
 rod_diam               = lm8uu_rod_diam;
 
+/*
 bearing_diam           = lm6uu_bearing_diam;
 bearing_len            = lm6uu_bearing_len;
 bearing_groove_spacing = lm6uu_bearing_groove_spacing;
 bearing_groove_width   = lm6uu_bearing_groove_width;
 bearing_groove_depth   = lm6uu_bearing_groove_depth;
 rod_diam               = lm6uu_rod_diam;
-/*
 */
 
 // if you'd like the z axis to use different rods/bearings
