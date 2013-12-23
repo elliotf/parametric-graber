@@ -107,6 +107,7 @@ module side_brace() {
       box_side([side_brace_total_depth,side_brace_horizontal_height],[0,1,2,1]);
   }
 
+  top_brace_tab_area = side_brace_horizontal_height;
   module holes() {
     // make room for z motor mount tabs
     translate([-z_motor_mount_y_pos-sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/2-sheet_thickness/2+0.025,0])
@@ -118,6 +119,11 @@ module side_brace() {
 
       translate([0,-sheet_thickness/2,0]) bc_screw_nut_hole();
     }
+
+    // make room for top rear brace tabs
+    to_remove = top_brace_tab_area;
+    translate([-side_brace_total_depth/2+to_remove/2-0.05,side_brace_total_height/2-to_remove/2+0.05,0])
+      cube([side_brace_horizontal_height,side_brace_horizontal_height,sheet_thickness+0.05],center=true);
   }
 
   color("red") {
@@ -128,6 +134,9 @@ module side_brace() {
 
     translate([-z_motor_mount_y_pos-sheet_thickness/2+sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/2-sheet_thickness,0])
       box_side([z_motor_mount_depth+sheet_thickness*3,motor_len,sheet_thickness],[1,0,0,0]);
+
+    translate([-side_brace_total_depth/2+top_brace_tab_area/2,side_brace_total_height/2-top_brace_tab_area/2,0])
+      box_side([top_brace_tab_area,top_brace_tab_area],[0,1,0,0]);
   }
 }
 
@@ -287,6 +296,20 @@ module z_rod_top_brace() {
   }
 }
 
+module top_rear_brace() {
+  module body() {
+    box_side([top_rear_brace_width,top_rear_brace_height],[0,2,0,2]);
+  }
+
+  module holes() {
+  }
+
+  color("green") difference() {
+    body();
+    holes();
+  }
+}
+
 module front_and_rear_face() {
   module body() {
     box_side([front_face_width,front_face_height],[0,2,2,2]);
@@ -408,6 +431,8 @@ module assembly() {
     front_face();
   translate([rear_face_x_pos,rear_face_y_pos,rear_face_z_pos]) rotate([90,0,0])
     rear_face();
+  translate([top_rear_brace_x_pos,top_rear_brace_y_pos,top_rear_brace_z_pos]) rotate([90,0,0])
+    top_rear_brace();
 
   translate([y_motor_x_pos,y_motor_y_pos,y_motor_z_pos]) {
     % rotate([0,90,0]) motor();

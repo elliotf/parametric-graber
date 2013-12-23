@@ -48,6 +48,9 @@ front_face_height = side_brace_horizontal_height;
 rear_face_width = front_face_width;
 rear_face_height = front_face_height;
 
+top_rear_brace_width = rear_face_width;
+top_rear_brace_height = rear_face_height;
+
 // TODO:
 // * eventually compensate Y for nozzle distance from x carriage and smooth rod and main plate
 //   * as in, things should be skewed to the front of the printer
@@ -92,6 +95,10 @@ rear_face_x_pos = 0;
 rear_face_y_pos = (bottom_plate_depth/2+sheet_thickness/2)*rear;
 rear_face_z_pos = front_face_z_pos;
 
-psu_x_pos = side_brace_x_pos + 5 + psu_height/2;
-psu_y_pos = skew_main_plate_to_rear + sheet_thickness/2 + psu_width/2;
+top_rear_brace_x_pos = 0;
+top_rear_brace_y_pos = (bottom_plate_depth/2+sheet_thickness/2)*rear;
+top_rear_brace_z_pos = side_brace_vertical_height-top_rear_brace_height/2;
+
+psu_x_pos = side_brace_x_pos + sheet_thickness*1.5 + 1 + psu_height/2;
+psu_y_pos = skew_main_plate_to_rear + sheet_thickness/2 + psu_width/2 + 1;
 psu_z_pos = psu_length/2 + 30;
