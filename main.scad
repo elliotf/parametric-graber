@@ -67,9 +67,24 @@ module main_plate() {
       }
     }
 
-    for(side=[left,right]) {
-      translate([side_brace_x_pos*side,main_plate_height/2-side_brace_vertical_height/2,0]) {
-        rotate([0,0,90]) scale([1,1,1.1]) bc_position_along_line(side_brace_vertical_height-bc_tab_from_end_dist*2) bc_offset_tab_pair(1);
+    side_indent_depth = sheet_thickness*2; //+(z_motor_mount_width/2-z_smooth_threaded_spacing)-bearing_diam/2;
+    cutter_size = sqrt(pow(side_indent_depth*2,2)/2);
+
+    translate([0,main_plate_height/2,0]) {
+      for(side=[left,right]) {
+        translate([side_brace_x_pos*side,-side_brace_vertical_height/2,0]) {
+          rotate([0,0,90]) scale([1,1,1.1]) bc_position_along_line(side_brace_vertical_height-bc_tab_from_end_dist*2) bc_offset_tab_pair(1);
+        }
+
+        hull() {
+          translate([main_plate_width/2*side,-side_indent_depth-sheet_thickness*1.5,0])
+            rotate([0,0,45])
+              cube([cutter_size,cutter_size,sheet_thickness+0.05],center=true);
+
+          translate([main_plate_width/2*side,-side_brace_vertical_height+side_indent_depth,0])
+            rotate([0,0,45])
+              cube([cutter_size,cutter_size,sheet_thickness+0.05],center=true);
+        }
       }
     }
   }
