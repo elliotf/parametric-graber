@@ -10,12 +10,13 @@ build_x_with_overhead = build_x + 30;
 build_y_with_overhead = build_y * 1.6;
 build_z_with_overhead = build_z + z_overhead;
 
-skew_main_plate_to_rear = nema17_side+sheet_thickness/2;
+space_behind_z_motor = 6; // make room for X smooth rods, motor/idler plastic
+skew_main_plate_to_rear = nema17_side+sheet_thickness/2+space_behind_z_motor;
 
 x_carriage_height = 60; // from prusa i3 parts
 
 z_motor_mount_width = nema17_side;
-z_motor_mount_depth = nema17_side;
+z_motor_mount_depth = nema17_side+space_behind_z_motor;
 
 z_motor_brace_depth = z_motor_mount_depth;
 z_motor_brace_height = z_motor_brace_depth;
@@ -60,15 +61,19 @@ y_carriage_y_pos = 0;
 y_carriage_z_pos = -sheet_thickness/2+z_overhead;
 
 z_motor_x_pos = side_brace_x_pos + sheet_thickness/2 + z_motor_mount_width/2;
-z_motor_y_pos = skew_main_plate_to_rear+(z_motor_mount_depth/2+sheet_thickness/2)*front;
+z_motor_y_pos = skew_main_plate_to_rear+(z_motor_mount_depth/2+sheet_thickness/2+space_behind_z_motor/2)*front;
 z_motor_z_pos = -sheet_thickness;
 
 z_smooth_rod_x_pos = z_motor_x_pos + z_smooth_threaded_spacing;
 z_smooth_rod_y_pos = z_motor_y_pos;
 z_smooth_rod_z_pos = side_brace_vertical_height/2-sheet_thickness/2;
 
+z_motor_mount_x_pos = z_motor_x_pos;
+z_motor_mount_y_pos = z_motor_y_pos + space_behind_z_motor/2;
+z_motor_mount_z_pos = z_motor_z_pos + sheet_thickness/2;
+
 z_motor_brace_x_pos = z_motor_x_pos + z_motor_mount_width/2 + sheet_thickness/2;
-z_motor_brace_y_pos = z_motor_y_pos;
+z_motor_brace_y_pos = z_motor_y_pos + space_behind_z_motor/2;
 z_motor_brace_z_pos = z_motor_z_pos - z_motor_brace_height/2;
 
 z_rod_top_brace_x_pos = z_smooth_rod_x_pos;
