@@ -99,7 +99,7 @@ module y_carriage() {
     }
   }
 
-  color("salmon") difference() {
+  color("violet") difference() {
     body();
     holes();
   }
