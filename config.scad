@@ -136,6 +136,10 @@ bearing_623zz_id = 3;
 bearing_623zz_od = 10;
 bearing_623zz_thickness = 4;
 
+bearing_624zz_id = 4;
+bearing_624zz_od = 13;
+bearing_624zz_thickness = 5;
+
 y_bearing_od = bearing_623zz_od;
 y_bearing_id = bearing_623zz_id;
 y_bearing_thickness = bearing_623zz_thickness;
