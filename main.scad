@@ -260,6 +260,11 @@ module front_and_rear_face() {
         }
       }
     }
+
+    for(side=[left,right]) {
+      translate([(y_motor_x_pos+sheet_thickness/2)*side,-front_face_height/2+motor_side/2,0]) scale([1,1,1.1]) rotate([0,0,90])
+        bc_tab_pair(1);
+    }
   }
 
   color("green") difference() {

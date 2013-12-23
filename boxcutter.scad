@@ -4,6 +4,11 @@ bc_nut_diam=5.45;
 bc_shoulder_width=6;
 bc_thickness=6;
 
+WITH_HOLES = 1;
+NO_HOLES = 0;
+
+function bc_hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
+
 module bc_screw_nut_hole() {
   // DUPE
 
@@ -63,7 +68,7 @@ module bc_offset_screw_nut_hole() {
   }
 }
 
-module position_along_line(to_fill=0) {
+module bc_position_along_line(to_fill=0) {
   // DUPE
 
   tab_len        = bc_tab_len;
@@ -124,6 +129,73 @@ module position_along_line(to_fill=0) {
   }
 }
 
+module bc_tab_pair(with_hole=WITH_HOLES) {
+  // DUPE
+
+  tab_len        = bc_tab_len;
+  screw_diam     = bc_screw_diam;
+  nut_diam       = bc_nut_diam;
+  shoulder_width = bc_shoulder_width;
+  thickness      = bc_thickness;
+
+  nyloc_nut_height = 4;
+  std_nut_height = 2.5;
+  nut_height = nyloc_nut_height;
+  nut_height = std_nut_height;
+
+  tab_slot_pair_space = tab_len * 1.5;
+  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
+  tab_from_end_dist = shoulder_width*4.5;
+
+  WITH_HOLES = 1;
+  NO_HOLES = 0;
+
+  // END DUPE
+
+  translate([-tab_slot_pair_len/2,0,0]) bc_offset_tab_pair(with_hole);
+}
+
+module bc_offset_tab_pair(with_hole=NO_HOLES) {
+  // DUPE
+
+  tab_len        = bc_tab_len;
+  screw_diam     = bc_screw_diam;
+  nut_diam       = bc_nut_diam;
+  shoulder_width = bc_shoulder_width;
+  thickness      = bc_thickness;
+
+  nyloc_nut_height = 4;
+  std_nut_height = 2.5;
+  nut_height = nyloc_nut_height;
+  nut_height = std_nut_height;
+
+  tab_slot_pair_space = tab_len * 1.5;
+  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
+  tab_from_end_dist = shoulder_width*4.5;
+
+  WITH_HOLES = 1;
+  NO_HOLES = 0;
+
+  // END DUPE
+
+  module tab() {
+    translate([tab_len/2,0,0])
+      cube([tab_len,thickness+0.05,thickness],center=true);
+  }
+
+  tab();
+  translate([tab_len+tab_slot_pair_space,0,0]) tab();
+
+  if(with_hole==WITH_HOLES) {
+    translate([tab_slot_pair_len/2,0,0])
+      cylinder(r=screw_diam*bc_hole_diam(12),h=thickness+0.05,center=true,$fn=12);
+  }
+}
+
 module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
   // DUPE
 
@@ -171,25 +243,8 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
   colors = ["red","green","blue","yellow"];
 
-  function hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
-
   function offset_for_side(side) = dimensions[1-side%2]/2 + thickness/2;
   function len_for_side(side) = dimensions[side%2];
-
-  module tab_pair(with_hole=NO_HOLES) {
-    module tab() {
-      translate([tab_len/2,0,0])
-        cube([tab_len,thickness+0.05,thickness],center=true);
-    }
-
-    tab();
-    translate([tab_len+tab_slot_pair_space,0,0]) tab();
-
-    if(with_hole==WITH_HOLES) {
-      translate([tab_slot_pair_len/2,0,0])
-        cylinder(r=screw_diam*hole_diam(12),h=thickness+0.05,center=true,$fn=12);
-    }
-  }
 
   module add_material_for_slot_side(side) {
     slots_to_right = floor(sides[(side+3)%4]/IS_SLOT);
@@ -217,7 +272,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
               // tabs?
               if(sides[side] == IS_TAB) {
                 //echo("add tabs for side ", side);
-                position_along_line(tab_space_for_side(side)) tab_pair();
+                bc_position_along_line(tab_space_for_side(side)) bc_offset_tab_pair();
               }
 
               // slots?
@@ -237,14 +292,14 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
               // tabs?
               if(sides[side] == IS_TAB) {
                 //echo("add screw/nut slots between tabs!");
-                position_along_line(tab_space_for_side(side)) bc_offset_screw_nut_hole();
+                bc_position_along_line(tab_space_for_side(side)) bc_offset_screw_nut_hole();
               }
 
               // slots?
               if(sides[side] == IS_SLOT) {
                 //echo("add slots!");
                 scale([1,1,1.05])
-                  position_along_line(tab_space_for_side(side)) tab_pair(WITH_HOLES);
+                  bc_position_along_line(tab_space_for_side(side)) bc_offset_tab_pair(WITH_HOLES);
               }
             }
       }
