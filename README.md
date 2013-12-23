@@ -11,7 +11,6 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Still left TODO:
 
-* Clearance for X motor on side of main frame
 * Holes in Y carriage for bed mounting
 * Holes in Y carriage for wire tiedown
 * Holes in side braces for mounting electronics
@@ -19,10 +18,10 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 * Holes in side braces for PSU
 * Holes in bottom for wire tiedown
 * Holes in bottom for screw feet
-* Top rear brace
 * Spool mount
 * Make cut files
 * Check parametric-ness of 6mm rods
 * Check parametric-ness of 6x6x6 build volume
 * Check parametric-ness of NEMA14 motors (mostly Y idler is the problem)
+* Add printed parts
 * Make BOM, possibly generate from scad a la nophead (praised be his name!)
