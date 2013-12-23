@@ -9,7 +9,7 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 * Because really, who doesn't want a 6"x6" graber with nema14 motors?
 * I grew tired of manually editing vector files in inkscape
 
-## Still TODO:
+# Still left TODO:
 
 * Clearance for X motor on side of main frame
 * Holes in Y carriage for bed mounting
