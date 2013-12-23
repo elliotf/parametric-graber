@@ -32,6 +32,7 @@ main_plate_z_pos = main_plate_height/2 - side_brace_horizontal_height;
 side_brace_total_depth = build_y_with_overhead+sheet_thickness;
 side_brace_total_height = main_plate_height;
 side_brace_vertical_height = side_brace_total_height - side_brace_horizontal_height;
+z_smooth_rod_len = side_brace_vertical_height + sheet_thickness - 0.05;
 
 side_brace_x_pos = build_x_with_overhead/2 + sheet_thickness + sheet_thickness/2;
 side_brace_y_pos = 0;
@@ -62,9 +63,17 @@ z_motor_x_pos = side_brace_x_pos + sheet_thickness/2 + z_motor_mount_width/2;
 z_motor_y_pos = skew_main_plate_to_rear+(z_motor_mount_depth/2+sheet_thickness/2)*front;
 z_motor_z_pos = -sheet_thickness;
 
+z_smooth_rod_x_pos = z_motor_x_pos + z_smooth_threaded_spacing;
+z_smooth_rod_y_pos = z_motor_y_pos;
+z_smooth_rod_z_pos = side_brace_vertical_height/2-sheet_thickness/2;
+
 z_motor_brace_x_pos = z_motor_x_pos + z_motor_mount_width/2 + sheet_thickness/2;
 z_motor_brace_y_pos = z_motor_y_pos;
 z_motor_brace_z_pos = z_motor_z_pos - z_motor_brace_height/2;
+
+z_rod_top_brace_x_pos = z_smooth_rod_x_pos;
+z_rod_top_brace_y_pos = z_motor_y_pos;
+z_rod_top_brace_z_pos = side_brace_vertical_height - sheet_thickness/2;
 
 y_motor_x_pos = -y_bearing_thickness-sheet_thickness;
 y_motor_y_pos = (side_brace_total_depth/2-motor_side/2)*front;
