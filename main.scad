@@ -22,7 +22,8 @@ translate([0,200,build_z/2+z_overhead]) {
 
 module main_plate() {
   module body() {
-    cube([main_plate_width,main_plate_height,sheet_thickness],center=true);
+    translate([0,-sheet_thickness,0])
+      cube([main_plate_width,main_plate_height+sheet_thickness*2,sheet_thickness],center=true);
   }
 
   module holes() {

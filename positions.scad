@@ -36,7 +36,7 @@ z_smooth_rod_len = side_brace_vertical_height + sheet_thickness - 0.05;
 
 side_brace_x_pos = build_x_with_overhead/2 + sheet_thickness + sheet_thickness/2;
 side_brace_y_pos = 0;
-side_brace_z_pos = main_plate_z_pos;
+side_brace_z_pos = side_brace_total_height/2-side_brace_horizontal_height;
 
 bottom_plate_width = side_brace_x_pos * 2 - sheet_thickness;
 bottom_plate_depth = build_y_with_overhead + sheet_thickness;
