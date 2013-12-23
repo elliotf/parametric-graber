@@ -4,12 +4,156 @@ bc_nut_diam=5.45;
 bc_shoulder_width=6;
 bc_thickness=6;
 
-module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
+module bc_screw_nut_hole() {
+  // DUPE
+
   tab_len        = bc_tab_len;
   screw_diam     = bc_screw_diam;
   nut_diam       = bc_nut_diam;
   shoulder_width = bc_shoulder_width;
   thickness      = bc_thickness;
+
+  nyloc_nut_height = 4;
+  std_nut_height = 2.5;
+  nut_height = nyloc_nut_height;
+  nut_height = std_nut_height;
+
+  echo("Screw length: ", thickness + shoulder_width + nut_height);
+
+  tab_slot_pair_space = tab_len * 1.5;
+  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
+  tab_from_end_dist = shoulder_width*4.5;
+
+  // END DUPE
+
+  translate([-tab_slot_pair_len/2,0,0]) bc_offset_screw_nut_hole();
+}
+
+module bc_offset_screw_nut_hole() {
+  // DUPE
+
+  tab_len        = bc_tab_len;
+  screw_diam     = bc_screw_diam;
+  nut_diam       = bc_nut_diam;
+  shoulder_width = bc_shoulder_width;
+  thickness      = bc_thickness;
+
+  nyloc_nut_height = 4;
+  std_nut_height = 2.5;
+  nut_height = nyloc_nut_height;
+  nut_height = std_nut_height;
+
+  echo("Screw length: ", thickness + shoulder_width + nut_height);
+
+  tab_slot_pair_space = tab_len * 1.5;
+  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
+  tab_from_end_dist = shoulder_width*4.5;
+
+  // END DUPE
+
+  thick = thickness+0.05;
+  screw_len = shoulder_width * .9 + nut_height;
+
+  translate([tab_slot_pair_len/2,-thickness/2,0]) {
+    translate([0,-shoulder_width*0.65-nut_height/2,0])
+      cube([nut_diam,nut_height,thick],center=true);
+
+    translate([0,-screw_len/2+0.05,0])
+      cube([screw_diam,screw_len,thick],center=true);
+  }
+}
+
+module position_along_line(to_fill=0) {
+  // DUPE
+
+  tab_len        = bc_tab_len;
+  screw_diam     = bc_screw_diam;
+  nut_diam       = bc_nut_diam;
+  shoulder_width = bc_shoulder_width;
+  thickness      = bc_thickness;
+
+  nyloc_nut_height = 4;
+  std_nut_height = 2.5;
+  nut_height = nyloc_nut_height;
+  nut_height = std_nut_height;
+
+  echo("Screw length: ", thickness + shoulder_width + nut_height);
+
+  tab_slot_pair_space = tab_len * 1.5;
+  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
+  tab_from_end_dist = shoulder_width*4.5;
+
+  // END DUPE
+
+  space_avail = to_fill + space_between_tab_slot_pairs;
+  //echo("to_fill: ", to_fill);
+  //echo("space_avail: ", space_avail);
+  //echo("tab_slot_pair_len: ", tab_slot_pair_len);
+
+  raw_num_fit = floor(space_avail/pair_and_spacing_len);
+
+  //echo("raw_num_fit: ", raw_num_fit);
+
+  function adjust_num_fit()
+    = (raw_num_fit > 2)
+    ? raw_num_fit
+    : (tab_slot_pair_len*2+tab_len < to_fill)
+      ? 2
+      : 1;
+
+  num_fit = adjust_num_fit();
+
+  space_consumed = tab_slot_pair_len*num_fit;
+  space_remaining = to_fill - space_consumed;
+  space_between = space_remaining/(num_fit-1);
+  //echo("new space between tab sets: ", space_between);
+
+  //echo("WILL FIT ", num_fit, " TAB SETS WITH ", space_between, "mm BETWEEN THEM");
+
+  if(num_fit ==1) {
+    translate([-tab_slot_pair_len/2,0,0])
+    child(0);
+  } else {
+    translate([-to_fill/2,0,0]) {
+      for(i=[0:num_fit-1]) {
+        translate([i*(tab_slot_pair_len+space_between),0,0]) {
+          child(0);
+        }
+      }
+    }
+  }
+}
+
+module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
+  // DUPE
+
+  tab_len        = bc_tab_len;
+  screw_diam     = bc_screw_diam;
+  nut_diam       = bc_nut_diam;
+  shoulder_width = bc_shoulder_width;
+  thickness      = bc_thickness;
+
+  nyloc_nut_height = 4;
+  std_nut_height = 2.5;
+  nut_height = nyloc_nut_height;
+  nut_height = std_nut_height;
+
+  echo("Screw length: ", thickness + shoulder_width + nut_height);
+
+  tab_slot_pair_space = tab_len * 1.5;
+  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
+  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
+  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
+  tab_from_end_dist = shoulder_width*4.5;
+
+  // END DUPE
+
   // creates a side of a box with tabs or slots that surrounds the provided dimensions
 
   IS_TAB = 1;
@@ -33,19 +177,6 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
   colors = ["red","green","blue","yellow"];
 
-  nyloc_nut_height = 4;
-  std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
-  nut_height = std_nut_height;
-
-  echo("Screw length: ", thickness + shoulder_width + nut_height);
-
-  tab_slot_pair_space = tab_len * 1.5;
-  tab_slot_pair_len = tab_len*2 + tab_slot_pair_space;
-  space_between_tab_slot_pairs = tab_slot_pair_len*2.25;
-  pair_and_spacing_len = tab_slot_pair_len + space_between_tab_slot_pairs;
-  tab_from_end_dist = shoulder_width*4.5;
-
   function hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
 
   function offset_for_side(side) = dimensions[1-side%2]/2 + thickness/2;
@@ -63,59 +194,6 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
     if(with_hole==WITH_HOLES) {
       translate([tab_slot_pair_len/2,0,0])
         cylinder(r=screw_diam*hole_diam(12),h=thickness+0.05,center=true,$fn=12);
-    }
-  }
-
-  module screw_nut_hole() {
-    thick = thickness+0.05;
-    screw_len = shoulder_width * .9 + nut_height;
-
-    translate([tab_slot_pair_len/2,-thickness/2,0]) {
-      translate([0,-shoulder_width*0.65-nut_height/2,0])
-        cube([nut_diam,nut_height,thick],center=true);
-
-      translate([0,-screw_len/2+0.05,0])
-        cube([screw_diam,screw_len,thick],center=true);
-    }
-  }
-
-  module position_along_line(to_fill=0) {
-    space_avail = to_fill + space_between_tab_slot_pairs;
-    //echo("to_fill: ", to_fill);
-    //echo("space_avail: ", space_avail);
-    //echo("tab_slot_pair_len: ", tab_slot_pair_len);
-
-    raw_num_fit = floor(space_avail/pair_and_spacing_len);
-
-    //echo("raw_num_fit: ", raw_num_fit);
-
-    function adjust_num_fit()
-      = (raw_num_fit > 2)
-      ? raw_num_fit
-      : (tab_slot_pair_len*2+tab_len < to_fill)
-        ? 2
-        : 1;
-
-    num_fit = adjust_num_fit();
-
-    space_consumed = tab_slot_pair_len*num_fit;
-    space_remaining = to_fill - space_consumed;
-    space_between = space_remaining/(num_fit-1);
-    //echo("new space between tab sets: ", space_between);
-
-    //echo("WILL FIT ", num_fit, " TAB SETS WITH ", space_between, "mm BETWEEN THEM");
-
-    if(num_fit ==1) {
-      translate([-tab_slot_pair_len/2,0,0])
-      child(0);
-    } else {
-      translate([-to_fill/2,0,0]) {
-        for(i=[0:num_fit-1]) {
-          translate([i*(tab_slot_pair_len+space_between),0,0]) {
-            child(0);
-          }
-        }
-      }
     }
   }
 
@@ -165,7 +243,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
               // tabs?
               if(sides[side] == IS_TAB) {
                 //echo("add screw/nut slots between tabs!");
-                position_along_line(tab_space_for_side(side)) screw_nut_hole();
+                position_along_line(tab_space_for_side(side)) bc_offset_screw_nut_hole();
               }
 
               // slots?

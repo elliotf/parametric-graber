@@ -38,8 +38,11 @@ module main_plate() {
           cube([sheet_thickness,side_brace_horizontal_height*2,sheet_thickness + 1],center=true);
 
         // top brace notch
-        translate([z_motor_x_pos*side,main_plate_height,0])
+        translate([z_motor_x_pos*side,main_plate_height,0]) {
           cube([motor_shoulder_diam+sheet_thickness*2,sheet_thickness*2,sheet_thickness+1],center=true);
+
+          translate([0,-sheet_thickness/2,0]) bc_screw_nut_hole();
+        }
       }
     }
   }
@@ -68,8 +71,11 @@ module side_brace() {
       cube([z_motor_mount_depth+sheet_thickness,sheet_thickness*2,sheet_thickness+1],center=true);
 
     // top brace notch
-    translate([-side_brace_total_depth/2+side_brace_vertical_depth,side_brace_total_height/2,0])
-      cube([sheet_thickness*10,sheet_thickness*2,sheet_thickness+1],center=true);
+    translate([-side_brace_total_depth/2+side_brace_vertical_depth-sheet_thickness*2.5,side_brace_total_height/2,0]) {
+      cube([sheet_thickness*5+0.05,sheet_thickness*2,sheet_thickness+1],center=true);
+
+      translate([0,-sheet_thickness/2,0]) bc_screw_nut_hole();
+    }
   }
 
   color("red") difference() {
