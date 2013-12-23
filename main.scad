@@ -27,9 +27,18 @@ module main_plate() {
   }
 
   module holes() {
+    rounded_diam = 32;
+
     translate([0,-main_plate_height/2,0]) {
       // main build area void
-      cube([build_x_with_overhead,(main_plate_height-x_carriage_height)*2,sheet_thickness + 1],center=true);
+      hull() {
+        cube([build_x_with_overhead,sheet_thickness,sheet_thickness + 1],center=true);
+
+        for(side=[left,right]) {
+          translate([(build_x_with_overhead/2-rounded_diam/2)*side,build_z_with_overhead+side_brace_horizontal_height-rounded_diam/3,0]) rotate([0,0,22.5])
+            hole(rounded_diam,sheet_thickness+0.05,16);
+        }
+      }
 
       // part of side brace notch
       cube([side_brace_x_pos*2+sheet_thickness,side_brace_horizontal_height*2-sheet_thickness*2,sheet_thickness + 1],center=true);
