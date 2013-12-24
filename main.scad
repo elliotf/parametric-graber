@@ -219,6 +219,23 @@ module side_brace() {
   }
 }
 
+module psu_spacer() {
+  module body() {
+    rotate([0,0,22.5])
+      hole(4+3*2,sheet_thickness,8);
+  }
+
+  module holes() {
+    rotate([0,0,22.5])
+      hole(4,sheet_thickness+1,8);
+  }
+
+  color("green") difference() {
+    body();
+    holes();
+  }
+}
+
 module y_carriage() {
   module body() {
     cube([build_x,build_y,sheet_thickness],center=true);
@@ -609,6 +626,16 @@ module assembly() {
 
   translate([psu_x_pos,psu_y_pos,psu_z_pos]) {
     % cube([psu_height,psu_width,psu_length],center=true);
+
+    translate([-psu_height/2-sheet_thickness/2,0,0]) {
+      for(x=[-.5,.5]) {
+        for(y=[-.5,.5]) {
+          translate([0.05,psu_hole_spacing_x*x,psu_hole_spacing_y*y])
+            rotate([0,90,0])
+              psu_spacer();
+        }
+      }
+    }
   }
 
   for(side=[left,right]) {

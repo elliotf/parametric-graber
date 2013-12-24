@@ -24,3 +24,4 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 * Improve parametric-ness of fasteners (frame, y rod retainer, make it easy to change)
 * Add printed parts
 * Make BOM, possibly generate from scad a la nophead (praised be his name!)
+* 6x6x6 printer with nema17 has y bearings that hit Y motor
