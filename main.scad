@@ -98,7 +98,7 @@ module main_plate() {
     }
   }
 
-  color("cyan") difference() {
+  color("lightblue") difference() {
     body();
     holes();
   }
