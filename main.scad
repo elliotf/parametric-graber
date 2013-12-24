@@ -1,24 +1,9 @@
+include <boxcutter.scad>;
 include <config.scad>;
 include <positions.scad>;
-include <boxcutter.scad>;
 use <util.scad>;
 
-//% translate([0,0,build_z/2+z_overhead+0.05]) cube([build_x,build_y,build_z],center=true);
-
-translate([0,200,build_z/2+z_overhead]) {
-  //% cube([605,6,450],center=true);
-}
-
-// main plate
-// side braces
-// bottom
-// front
-// rear
-// top rear brace
-// z smooth rod brace
-// z motor mount
-// y motor mount?
-// y idler?
+//% translate([0,y_carriage_y_pos,build_z/2+y_carriage_z_pos+sheet_thickness/2+0.05]) cube([build_x,build_y,build_z],center=true);
 
 module main_plate() {
   module body() {
@@ -150,7 +135,7 @@ module side_brace() {
 
     // wiring passthrough
     translate([-side_brace_total_depth/2+side_brace_vertical_depth,-side_brace_total_height/2+sheet_thickness*2,0]) {
-      for(x=[-10,-60]) {
+      for(x=[-10,-50]) {
         translate([x,0,0]) {
           wire_hole();
         }
@@ -272,6 +257,7 @@ module bottom_plate() {
     material_width_remain = motor_side;
     hole_radius = 10;
 
+    // main void
     hull() {
       for(side=[left,right]) {
         for(end=[front,rear]) {
@@ -452,7 +438,9 @@ module front_and_rear_face() {
       }
     }
 
-    clearance_depth = 8;
+    clearance_depth = rod_diam;
+
+    // center bed mount clearance
     hull() {
       for(side=[left,right]) {
         translate([clearance_depth*side,front_face_height/2,0]) {
@@ -461,9 +449,6 @@ module front_and_rear_face() {
         }
       }
     }
-
-    translate([0,front_face_height/2-4,0]) rotate([0,0,22.5])
-      hole(10,sheet_thickness+0.05,8);
 
     for(side=[left,right]) {
       // bed mount screw clearance
@@ -630,7 +615,7 @@ module assembly() {
     }
   }
 
-  translate([y_carriage_x_pos,y_carriage_y_pos+(build_y/2*0),y_carriage_z_pos]) y_carriage();
+  translate([y_carriage_x_pos,y_carriage_y_pos,y_carriage_z_pos]) y_carriage();
 
   translate([bottom_plate_x_pos,bottom_plate_y_pos,bottom_plate_z_pos]) bottom_plate();
 
