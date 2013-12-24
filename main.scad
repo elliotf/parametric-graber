@@ -158,9 +158,34 @@ module side_brace() {
     }
 
     // electronics mounting holes
-    translate([-skew_main_plate_to_rear-sheet_thickness*2,-side_brace_total_height/2+side_brace_horizontal_height+sheet_thickness*2,0]) {
-      rotate([0,0,90])
-        electronics_holes();
+    cabling_room = 10;
+    translate([-side_brace_total_depth/2,-side_brace_total_height/2+side_brace_horizontal_height,0]) {
+      translate([65,motor_len+5,0]) {
+        translate([15,-15,0]) {
+          rotate([0,0,90]) {
+            translate([0,20,0]) arduino_mount_holes();
+            color("magenta")
+              translate([7,2,0])
+                sanguinololu_holes();
+          }
+        }
+      }
+
+      translate([side_brace_vertical_depth,cabling_room,0]) {
+        // arduino and sanguinololu vertical
+        translate([5,-10,0]) {
+          rotate([0,0,90]) {
+            translate([0,20,0]) arduino_mount_holes();
+            color("magenta")
+              translate([7,2,0])
+                sanguinololu_holes();
+          }
+        }
+
+        translate([-6,0,0])
+          rotate([0,0,90])
+            rambo_holes();
+      }
     }
   }
 
@@ -217,7 +242,7 @@ module bottom_plate() {
     hull() {
       for(side=[left,right]) {
         for(end=[front,rear]) {
-          translate([(bottom_plate_width/2-material_width_remain-hole_radius)*side,(bottom_plate_depth/2-material_width_remain-hole_radius)*end,0])
+          translate([(bottom_plate_width/2-material_width_remain-hole_radius)*side,(bottom_plate_depth/2-material_width_remain*1.5-hole_radius)*end,0])
             hole(hole_radius,sheet_thickness+0.05,16);
         }
       }
@@ -524,11 +549,11 @@ module y_idler() {
 
   module holes() {
     diagonal = sqrt(pow(motor_side,2)*2);
-    offset = motor_side*.6+sheet_thickness*.6;
-    translate([offset,offset,0]) rotate([0,0,45])
-      cube([diagonal,diagonal,sheet_thickness+0.05],center=true);
+    offset = motor_side*.5 + 9;
+    translate([offset,offset,0]) rotate([0,0,65])
+      cube([diagonal,diagonal*2,sheet_thickness+0.05],center=true);
 
-    hole(3,sheet_thickness+0.05,10);
+    hole(y_bearing_id,sheet_thickness+0.05,10);
   }
 
   difference() {
@@ -710,14 +735,6 @@ module endstop() {
     cube([endstop_len-4,endstop_width-1,.5],center=true);
 }
 
-module electronics_holes() {
-  translate([0,20,0]) arduino_mount_holes();
-  color("cyan") rambo_holes();
-  color("magenta")
-    translate([7,2,0])
-      sanguinololu_holes();
-}
-
 module rambo_holes() {
   x = 95;
   y = 96;
@@ -748,7 +765,6 @@ module sanguinololu_holes() {
     for(x=[-len/2,len/2]) {
       for(y=[-width/2,width/2]) {
         translate([x,y,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
-        translate([y,x,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
       }
     }
   }
@@ -786,7 +802,6 @@ module arduino_mount_holes() {
   board_width = 101.6;
   board_height = 53.3;
 
-  % cube([board_width,board_height,sheet_thickness+1]);
   translate([13.97,2.54,0]) {
     color("red")    translate(holes[0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
     color("green")  translate(holes[1]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
