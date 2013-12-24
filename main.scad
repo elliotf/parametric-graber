@@ -156,6 +156,12 @@ module side_brace() {
         }
       }
     }
+
+    // electronics mounting holes
+    translate([-skew_main_plate_to_rear-sheet_thickness*2,-side_brace_total_height/2+side_brace_horizontal_height+sheet_thickness*2,0]) {
+      rotate([0,0,90])
+        electronics_holes();
+    }
   }
 
   color("red") {
@@ -379,8 +385,6 @@ module front_and_rear_face() {
     }
 
     clearance_depth = 8;
-    clearance_x_pos = y_rod_spacing/2+rod_diam/2+5+clearance_width/2;
-
     hull() {
       for(side=[left,right]) {
         translate([clearance_depth*side,front_face_height/2,0]) {
@@ -611,8 +615,6 @@ module assembly() {
   }
 }
 
-assembly();
-
 module motor() {
   difference() {
     translate([0,0,-motor_side/2]) cube([motor_side,motor_side,motor_side],center=true);
@@ -707,3 +709,90 @@ module endstop() {
   translate([0,0,endstop_height/2+.5]) rotate([0,5,0])
     cube([endstop_len-4,endstop_width-1,.5],center=true);
 }
+
+module electronics_holes() {
+  translate([0,20,0]) arduino_mount_holes();
+  color("cyan") rambo_holes();
+  color("magenta")
+    translate([7,2,0])
+      sanguinololu_holes();
+}
+
+module rambo_holes() {
+  x = 95;
+  y = 96;
+
+  hull() {
+    translate([0,y,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+    translate([0,x,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+  }
+
+  hull() {
+    translate([y,0,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+    translate([x,0,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+  }
+
+  hull() {
+    translate([y,x,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+    translate([x,y,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+  }
+
+  translate([0,0,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+}
+
+module sanguinololu_holes() {
+  len = 93;
+  width = 43;
+
+  translate([len/2,len/2,0]) {
+    for(x=[-len/2,len/2]) {
+      for(y=[-width/2,width/2]) {
+        translate([x,y,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+        translate([y,x,0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+      }
+    }
+  }
+}
+
+module arduino_mount_holes() {
+  /*
+  // converting from ****ing milli-inches to mm
+  // used
+  //   * https://farm6.static.flickr.com/5091/5484250200_dc106d9efd.jpg but it's missing a hole
+  //   * http://forum.arduino.cc/index.php?topic=17032.0 but it is wrong in places
+  //   * http://www.wayneandlayne.com/files/common/arduino_mega_drawing_500x264.png but it is very blurry
+  //
+  // Finally, I found this one after the fact:
+  //   http://files.hwkitchen.com/200000736-26528274c8/arduino-mega2560-holes-coordinates.jpg
+
+  holes = [
+    [550*.0254  - 13.97,100*.0254-2.54], // bottom left
+    [600*.0254  - 13.97,2000*.0254-2.54], // top left
+    [3550*.0254 - 13.97,2000*.0254-2.54], // top right
+    [3800*.0254 - 13.97,100*.0254-2.54] // bottom right
+  ];
+  */
+
+  holes = [
+    [0     ,0], // bottom left
+    [1.27  ,48.26], // top left
+    [76.2  ,48.26], // top right
+    [82.55 ,0] // bottom right
+  ];
+
+  height = 48.26;
+  width = 82.55;
+
+  board_width = 101.6;
+  board_height = 53.3;
+
+  % cube([board_width,board_height,sheet_thickness+1]);
+  translate([13.97,2.54,0]) {
+    color("red")    translate(holes[0]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+    color("green")  translate(holes[1]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+    color("blue")   translate(holes[2]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+    color("yellow") translate(holes[3]) rotate([0,0,22.5]) hole(3,sheet_thickness+0.05,8);
+  }
+}
+
+assembly();
