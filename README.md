@@ -11,7 +11,6 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Still left TODO:
 
-* Holes in side braces for PSU
 * Holes in Y carriage for belt clamp
 * Holes in Y carriage for bed mounting
 * Holes in Y carriage for wire tiedown
