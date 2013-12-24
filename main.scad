@@ -3,7 +3,8 @@ include <config.scad>;
 include <positions.scad>;
 use <util.scad>;
 
-//% translate([0,y_carriage_y_pos,build_z/2+y_carriage_z_pos+sheet_thickness/2+0.05]) cube([build_x,build_y,build_z],center=true);
+// build volume for debugging
+//% translate([0,y_carriage_y_pos,build_z/2+heatbed_z_pos+heatbed_thickness/2+0.05]) cube([build_x,build_y,build_z],center=true);
 
 module main_plate() {
   module body() {
@@ -190,7 +191,7 @@ module side_brace() {
     }
   }
 
-  color("red") {
+  color("orangered") {
     difference() {
       body();
       holes();
@@ -223,7 +224,7 @@ module psu_spacer() {
 
 module y_carriage() {
   module body() {
-    cube([build_x,build_y,sheet_thickness],center=true);
+    cube([y_carriage_width,y_carriage_depth,sheet_thickness],center=true);
   }
 
   module holes() {
@@ -664,8 +665,8 @@ module assembly() {
       rotate([90,0,0])
         cylinder(r=rod_diam/2,h=side_brace_total_depth + sheet_thickness*2 + 0.05,center=true);
 
-      for(y=[-1,1]) {
-        % translate([0,y_carriage_bearing_spacing_y/2*y,0]) bearing();
+      for(y=[front,rear]) {
+        % translate([0,y_carriage_y_pos+(y_carriage_bearing_spacing_y/2)*y,0]) bearing();
       }
     }
 
@@ -676,6 +677,9 @@ module assembly() {
         cylinder(r=rod_diam/2,h=z_smooth_rod_len,center=true);
     }
   }
+
+  translate([y_carriage_x_pos,y_carriage_y_pos,y_carriage_z_pos+sheet_thickness/2+3])
+    color("red") heatbed();
 }
 
 module motor() {
@@ -763,6 +767,7 @@ module heatbed() {
           cylinder(r=heatbed_hole_diam/2,h=heatbed_thickness+0.05,center=true);
       }
     }
+    cube([build_x,build_y,heatbed_thickness+1],center=true);
   }
 }
 
