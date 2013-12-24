@@ -187,6 +187,18 @@ module side_brace() {
             rambo_holes();
       }
     }
+
+    // psu mounting holes
+    translate([-side_brace_total_depth/2+side_brace_vertical_depth,-side_brace_total_height/2+side_brace_horizontal_height,0]) {
+      translate([-psu_width/2,psu_length/2+30,0]) {
+        for(x=[-1,1]) {
+          for(y=[-1,1]) {
+            translate([x*psu_hole_spacing_x/2,y*psu_hole_spacing_y/2,0]) rotate([0,0,22.5])
+              hole(4,sheet_thickness+0.05+100,8);
+          }
+        }
+      }
+    }
   }
 
   color("red") {

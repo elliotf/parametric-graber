@@ -220,6 +220,8 @@ psu_height = 50;
 
 psu_hole_spacing_x = 50;
 psu_hole_spacing_y = 150;
+psu_hole_from_side = 32;
+psu_hole_from_end = 32.5;
 
 // heated bed / build plate
 heatbed_thickness = 1;
