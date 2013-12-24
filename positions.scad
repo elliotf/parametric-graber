@@ -104,4 +104,4 @@ top_rear_brace_z_pos = side_brace_vertical_height-top_rear_brace_height/2;
 
 psu_x_pos = side_brace_x_pos + sheet_thickness*1.5 + 1 + psu_height/2;
 psu_y_pos = skew_main_plate_to_rear + sheet_thickness/2 + psu_hole_from_side + psu_hole_spacing_x/2 + 1;
-psu_z_pos = psu_length/2 + 30;
+psu_z_pos = psu_length/2 + 20;
