@@ -35,7 +35,6 @@ main_plate_z_pos = main_plate_height/2 - side_brace_horizontal_height;
 side_brace_total_depth = build_y_with_overhead+sheet_thickness;
 side_brace_total_height = main_plate_height;
 side_brace_vertical_height = side_brace_total_height - side_brace_horizontal_height;
-z_smooth_rod_len = side_brace_vertical_height + sheet_thickness - 0.05;
 
 side_brace_x_pos = build_x_with_overhead/2 + sheet_thickness + sheet_thickness/2;
 side_brace_y_pos = 0;
@@ -72,6 +71,14 @@ z_motor_z_pos = -sheet_thickness;
 z_smooth_rod_x_pos = z_motor_x_pos + z_smooth_threaded_spacing;
 z_smooth_rod_y_pos = z_motor_y_pos;
 z_smooth_rod_z_pos = side_brace_vertical_height/2-sheet_thickness/2;
+
+x_smooth_rod_len = z_smooth_rod_x_pos*2;
+y_smooth_rod_len = side_brace_total_depth + sheet_thickness*2;
+z_smooth_rod_len = side_brace_vertical_height + sheet_thickness;
+
+echo("BOM: X smooth rod len: ", x_smooth_rod_len);
+echo("BOM: Y smooth rod len: ", y_smooth_rod_len);
+echo("BOM: Z smooth rod len: ", z_smooth_rod_len);
 
 z_motor_mount_x_pos = z_motor_x_pos;
 z_motor_mount_y_pos = z_motor_y_pos + space_behind_z_motor/2;
