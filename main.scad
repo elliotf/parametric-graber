@@ -281,10 +281,20 @@ module bottom_plate() {
       }
     }
 
+    // slots for y motor and y idler
     for(end=[front,rear]){
       for(side=[left,right]) {
         translate([(y_motor_x_pos+sheet_thickness/2)*side,(bottom_plate_depth/2-motor_side/2)*end,0]) rotate([0,0,90]) scale([1,1,1.1])
           bc_tab_pair(1);
+      }
+    }
+
+    // holes for screw feet
+    dist_from_edge = nema17_len*.9;
+    for(end=[front,rear]) {
+      for(side=[left,right]) {
+        translate([(bottom_plate_width/2-dist_from_edge)*side,(bottom_plate_depth/2-dist_from_edge)*end,0])
+          hole(8,sheet_thickness+0.05,8);
       }
     }
   }

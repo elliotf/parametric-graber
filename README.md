@@ -15,7 +15,6 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 * Holes in Y carriage for bed mounting
 * Holes in Y carriage for wire tiedown
 * Holes in bottom for wire tiedown
-* Holes in bottom for screw feet
 * Spool mount
 * Make cut files
 * Check parametric-ness of 6mm rods
