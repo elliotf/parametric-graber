@@ -11,7 +11,6 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Still left TODO:
 
-* Holes in Y carriage for belt clamp
 * Holes in bottom for wire tiedown
 * Spool mount
 * Make cut files
@@ -22,3 +21,5 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 * Add printed parts
 * Make BOM, possibly generate from scad a la nophead (praised be his name!)
 * 6x6x6 printer with nema17 has y bearings that hit Y motor
+* Allow non-square Y carriage
+* Allow three-bearing Y carriage

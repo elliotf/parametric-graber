@@ -229,10 +229,6 @@ module y_carriage() {
     bearing_width_at_depth = bearing_diam * .6; // TODO: calculate this better using a chord
     for(side=[left,right]) {
       for(end=[front,rear]) {
-        // y belt clamp holes
-        translate([y_belt_clamp_hole_spacing/2*side,0,0]) hole(3,sheet_thickness+0.05,8);
-        translate([0,y_belt_clamp_hole_spacing/2*side,0]) hole(3,sheet_thickness+0.05,8);
-
         translate([y_rod_spacing/2*side,y_carriage_bearing_spacing_y/2*end,0]) {
           cube([bearing_width_at_depth,bearing_len,sheet_thickness+0.05],center=true);
 
@@ -250,13 +246,17 @@ module y_carriage() {
         translate([y_carriage_width/2*side,y_carriage_depth/2*end,0]) rotate([0,0,45])
           cube([5,5,sheet_thickness+0.05],center=true);
 
-        // zip tie holes along sides
-        for(y=[8,build_y/2-5])
-          translate([(build_x/2+4)*side,y*end,0])
-            cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
-        for(x=[8,build_x/2-5])
-          translate([x*end,(build_y/2+4)*side,0])
-            cube([zip_tie_width,zip_tie_thickness,sheet_thickness+0.05],center=true);
+        // FIXME: Does not allow non-square y carriage
+        for(rota=[0,90]) {
+          // y belt clamp
+          translate([0,y_belt_clamp_hole_spacing/2*side,0]) hole(3,sheet_thickness+0.05,8);
+
+          // zip tie holes along sides
+          rotate([0,0,rota])
+            for(y=[8,build_y/2-5])
+              translate([(build_x/2+4)*side,y*end,0])
+                cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
+        }
       }
 
       // three-hole mounting holes
