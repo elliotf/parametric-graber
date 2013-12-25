@@ -229,6 +229,10 @@ module y_carriage() {
     bearing_width_at_depth = bearing_diam * .6; // TODO: calculate this better using a chord
     for(side=[left,right]) {
       for(end=[front,rear]) {
+        // y belt clamp holes
+        translate([y_belt_clamp_hole_spacing/2*side,0,0]) hole(3,sheet_thickness+0.05,8);
+        translate([0,y_belt_clamp_hole_spacing/2*side,0]) hole(3,sheet_thickness+0.05,8);
+
         translate([y_rod_spacing/2*side,y_carriage_bearing_spacing_y/2*end,0]) {
           cube([bearing_width_at_depth,bearing_len,sheet_thickness+0.05],center=true);
 
