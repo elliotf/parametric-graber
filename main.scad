@@ -237,7 +237,29 @@ module y_carriage() {
               cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
           }
         }
+
+        // heatbed mounting holes
+        translate([heatbed_hole_spacing_x/2*side,heatbed_hole_spacing_y/2*end,0]) rotate([0,0,22.5])
+          hole(3,sheet_thickness+0.05,8);
+
+        // trim corners
+        translate([y_carriage_width/2*side,y_carriage_depth/2*end,0]) rotate([0,0,45])
+          cube([5,5,sheet_thickness+0.05],center=true);
+
+        // zip tie holes along sides
+        for(y=[8,build_y/2-5])
+          translate([(build_x/2+4)*side,y*end,0])
+            cube([zip_tie_thickness,zip_tie_width,sheet_thickness+0.05],center=true);
+        for(x=[8,build_x/2-5])
+          translate([x*end,(build_y/2+4)*side,0])
+            cube([zip_tie_width,zip_tie_thickness,sheet_thickness+0.05],center=true);
       }
+
+      // three-hole mounting holes
+      translate([heatbed_hole_spacing_x/2*side,0,0]) rotate([0,0,22.5])
+        hole(3,sheet_thickness+0.05,8);
+      translate([0,heatbed_hole_spacing_y/2*side,0]) rotate([0,0,22.5])
+        hole(3,sheet_thickness+0.05,8);
     }
   }
 
@@ -284,7 +306,7 @@ module bottom_plate() {
     }
   }
 
-  color("lightblue") difference() {
+  color("turquoise") difference() {
     body();
     holes();
   }
@@ -677,7 +699,7 @@ module assembly() {
   }
 
   translate([y_carriage_x_pos,y_carriage_y_pos,y_carriage_z_pos+sheet_thickness/2+3])
-    color("red") heatbed();
+    color("red",0.5) heatbed();
 }
 
 module motor() {
@@ -765,7 +787,6 @@ module heatbed() {
           cylinder(r=heatbed_hole_diam/2,h=heatbed_thickness+0.05,center=true);
       }
     }
-    cube([build_x,build_y,heatbed_thickness+1],center=true);
   }
 }
 
