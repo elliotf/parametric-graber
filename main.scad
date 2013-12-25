@@ -175,15 +175,13 @@ module side_brace() {
     }
 
     // psu mounting holes
-    translate([-side_brace_total_depth/2+side_brace_vertical_depth,-side_brace_total_height/2+side_brace_horizontal_height,0]) {
-      translate([-psu_width/2,psu_length/2+20,0]) {
-        for(x=[-1,1]) {
-          for(y=[-1,1]) {
-            hull() {
-              for(addtl=[0,-5]) {
-                translate([x*psu_hole_spacing_x/2+addtl,y*psu_hole_spacing_y/2,0]) rotate([0,0,22.5])
-                  hole(4,sheet_thickness+0.05+100,8);
-              }
+    translate([-psu_y_pos,-side_brace_total_height/2+side_brace_horizontal_height+psu_length/2+20,0]) {
+      for(x=[-1,1]) {
+        for(y=[-1,1]) {
+          hull() {
+            for(addtl=[0,-5]) {
+              translate([x*psu_hole_spacing_x/2+addtl,y*psu_hole_spacing_y/2,0]) rotate([0,0,22.5])
+                hole(4,sheet_thickness+0.05+100,8);
             }
           }
         }
