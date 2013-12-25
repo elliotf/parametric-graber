@@ -11,7 +11,6 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Still left TODO:
 
-* Holes in bottom for wire tiedown
 * Spool mount
 * Make cut files
 * Check parametric-ness of 6mm rods

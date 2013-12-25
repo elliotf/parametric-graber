@@ -135,7 +135,7 @@ module side_brace() {
     }
 
     // wiring passthrough
-    translate([-side_brace_total_depth/2+side_brace_vertical_depth,-side_brace_total_height/2+sheet_thickness*2,0]) {
+    translate([-front_wire_passthrough_hole_y_pos,front_wire_passthrough_hole_z_pos,0]) {
       for(x=[-10,-50]) {
         translate([x,0,0]) {
           wire_hole();
@@ -279,15 +279,16 @@ module bottom_plate() {
   }
 
   module holes() {
-    material_width_remain = motor_side;
-    hole_radius = 10;
+    hole_radius = 5;
+    void_width = bottom_plate_width-motor_side*2.25-hole_radius;
+    void_depth = bottom_plate_depth-motor_side*3-hole_radius;
 
     // main void
     hull() {
       for(side=[left,right]) {
         for(end=[front,rear]) {
-          translate([(bottom_plate_width/2-material_width_remain-hole_radius)*side,(bottom_plate_depth/2-material_width_remain*1.5-hole_radius)*end,0])
-            hole(hole_radius,sheet_thickness+0.05,16);
+          translate([(void_width/2-hole_radius)*side,(void_depth/2-hole_radius)*end,0])
+            hole(hole_radius*2,sheet_thickness+0.05,16);
         }
       }
     }
@@ -306,6 +307,16 @@ module bottom_plate() {
       for(side=[left,right]) {
         translate([(bottom_plate_width/2-dist_from_edge)*side,(bottom_plate_depth/2-dist_from_edge)*end,0])
           hole(8,sheet_thickness+0.05,8);
+      }
+    }
+
+    // wire tie down holes
+    for(side=[left,0,right]) {
+      for(y=[10,50]) {
+        translate([(void_width/2+zip_tie_thickness/2+5)*side,front_wire_passthrough_hole_y_pos+y,0])
+          for(tie_hole=[-1,1])
+            translate([0,4*tie_hole,0])
+              cube([zip_tie_width,zip_tie_thickness,sheet_thickness+0.05],center=true);
       }
     }
   }

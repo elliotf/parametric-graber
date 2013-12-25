@@ -121,3 +121,6 @@ psu_cover_thickness = 1.5;
 psu_x_pos = side_brace_x_pos + sheet_thickness*1.5 + psu_height/2;
 psu_y_pos = skew_main_plate_to_rear + sheet_thickness/2 + psu_cover_screw_height + psu_cover_thickness + psu_hole_from_side + psu_hole_spacing_x/2;
 psu_z_pos = psu_length/2 + 20;
+
+front_wire_passthrough_hole_y_pos = side_brace_total_depth/2-side_brace_vertical_depth;
+front_wire_passthrough_hole_z_pos = -side_brace_total_height/2+sheet_thickness*2;
