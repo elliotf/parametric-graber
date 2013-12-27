@@ -3,7 +3,7 @@ include <config.scad>;
 y_carriage_width = build_x+20;
 y_carriage_depth = build_y+20;
 
-z_overhead = sheet_thickness * 2; // bed support, y motor, y linear bearings, zip ties, etc.
+z_overhead = 20; // bed support, y motor, y linear bearings, zip ties, etc.
 y_rod_spacing = build_x-40;
 y_carriage_bearing_spacing_y = build_y*.4;
 
@@ -11,8 +11,8 @@ z_smooth_threaded_spacing = 17;
 
 y_rod_zip_tie_space = 8;
 
-build_x_with_overhead = y_carriage_width + 15;
-build_y_with_overhead = build_y + y_carriage_bearing_spacing_y + bearing_len + 15;
+build_x_with_overhead = y_carriage_width + 30;
+build_y_with_overhead = build_y + y_carriage_bearing_spacing_y + bearing_len + 30;
 build_z_with_overhead = build_z + z_overhead;
 
 space_behind_z_motor = 6; // make room for X smooth rods, motor/idler plastic
