@@ -11,13 +11,14 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Still left TODO:
 
+* Add printed parts
+* Make sure nozzle can reach min,max build y
 * Spool mount
 * Make cut files
 * Check parametric-ness of 6mm rods
 * Check parametric-ness of 6x6x6 build volume
 * Check parametric-ness of NEMA14 motors (mostly Y idler is the problem)
 * Improve parametric-ness of fasteners (frame, y rod retainer, make it easy to change)
-* Add printed parts
 * Make BOM, possibly generate from scad a la nophead (praised be his name!)
 * 6x6x6 printer with nema17 has y bearings that hit Y motor
 * Allow non-square Y carriage
