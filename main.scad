@@ -280,15 +280,15 @@ module bottom_plate() {
 
   module holes() {
     hole_radius = 5;
-    void_width = bottom_plate_width-motor_side*2.25-hole_radius;
-    void_depth = bottom_plate_depth-motor_side*3-hole_radius;
+    void_width = bottom_plate_width-motor_side*3-hole_radius;
+    void_depth = bottom_plate_depth-motor_side*4-hole_radius;
 
     // main void
     hull() {
       for(side=[left,right]) {
         for(end=[front,rear]) {
-          translate([(void_width/2-hole_radius)*side,(void_depth/2-hole_radius)*end,0])
-            hole(hole_radius*2,sheet_thickness+0.05,16);
+          translate([(void_width/2-hole_radius)*side,(void_depth/2-hole_radius)*end,0]) rotate([0,0,22.5])
+            hole(hole_radius*2,sheet_thickness+0.05,8);
         }
       }
     }
