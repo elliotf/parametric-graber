@@ -4,7 +4,7 @@ y_carriage_width = build_x+20;
 y_carriage_depth = build_y+20;
 
 z_overhead = sheet_thickness * 2; // bed support, y motor, y linear bearings, zip ties, etc.
-y_rod_spacing = build_x*.8;
+y_rod_spacing = build_x-40;
 y_carriage_bearing_spacing_y = build_y*.4;
 
 z_smooth_threaded_spacing = 17;
