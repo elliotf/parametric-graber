@@ -44,11 +44,11 @@ module main_plate() {
         // motor mount holes
         translate([0,side_brace_horizontal_height-sheet_thickness/2,0]) {
           translate([z_motor_x_pos*side,0,0])
-            scale([1,1,1.1]) bc_tab_pair(1);
+            scale([1,1,1.1]) bc_tab_pair(2);
 
           // motor brace holes
           translate([z_motor_brace_x_pos*side,-sheet_thickness/2-z_motor_brace_height/2,0]) rotate([0,0,90])
-            scale([1,1,1.1]) bc_tab_pair(1);
+            scale([1,1,1.1]) bc_tab_pair(2);
         }
 
         translate([(z_motor_x_pos+4)*side,0,0])
@@ -109,8 +109,8 @@ module side_brace() {
   top_brace_tab_area = side_brace_horizontal_height;
   module holes() {
     // make room for z motor mount tabs
-    translate([-z_motor_mount_y_pos-sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/2-sheet_thickness/2+0.025,0])
-      cube([z_motor_mount_depth+sheet_thickness,sheet_thickness+motor_len,sheet_thickness+0.05],center=true);
+    translate([-z_motor_mount_y_pos-sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/4-sheet_thickness/2+0.025,0])
+      cube([z_motor_mount_depth+sheet_thickness,sheet_thickness+motor_len/2,sheet_thickness+0.05],center=true);
 
     // top brace notch
     translate([-side_brace_total_depth/2+side_brace_vertical_depth-sheet_thickness*2.5,side_brace_total_height/2,0]) {
@@ -195,8 +195,8 @@ module side_brace() {
       holes();
     }
 
-    translate([-z_motor_mount_y_pos-sheet_thickness/2+sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/2-sheet_thickness,0])
-      box_side([z_motor_mount_depth+sheet_thickness*2,motor_len,sheet_thickness],[1,0,0,0]);
+    translate([-z_motor_mount_y_pos-sheet_thickness/2+sheet_thickness/2,bottom+side_brace_horizontal_height-motor_len/4-sheet_thickness,0])
+      box_side([z_motor_mount_depth+sheet_thickness*2,motor_len/2,sheet_thickness],[3,0,0,0]);
 
     translate([-side_brace_total_depth/2+top_brace_tab_area/2,side_brace_total_height/2-top_brace_tab_area/2,0])
       box_side([top_brace_tab_area,top_brace_tab_area],[0,1,0,0]);
@@ -329,7 +329,7 @@ module bottom_plate() {
 
 module z_motor_mount() {
   module body() {
-    box_side([z_motor_mount_width,z_motor_mount_depth],[1,2,0,2]);
+    box_side([z_motor_mount_width,z_motor_mount_depth],[BC_SCREW_TAB,BC_SCREW_SLOT,0,BC_SCREW_SLOT]);
   }
 
   module holes() {
@@ -356,7 +356,7 @@ module z_motor_mount() {
 
 module z_motor_brace() {
   module body() {
-    box_side([z_motor_brace_depth,z_motor_brace_height],[1,1,0,0]);
+    box_side([z_motor_brace_depth,z_motor_brace_height],[3,3,0,0]);
   }
 
   module holes() {
