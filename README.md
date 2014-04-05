@@ -6,8 +6,16 @@ An unproven, experimental, parametric implementation of the graber printer.  See
 
 # Why?
 
-* Because really, who doesn't want a 6"x6" graber with nema14 motors?
+* Because really, who doesn't want a 6"x6"x10" graber with nema14 motors?
 * I grew tired of manually editing vector files in inkscape
+
+# Why zipties?
+
+* Cheaper than m3 screws/nuts/bolts
+* They allow for stronger parts (t-slots have all of the pull on a very small shoulder)
+* They might be easier to assemble (you don't need to hold/tape a fiddly nut in place)
+* Nicholas Seward is a madman with great ideas, and it's another fun experiment
+* Should be faster to render/cut, having simpler holes
 
 # Still left TODO:
 
