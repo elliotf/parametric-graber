@@ -338,7 +338,7 @@ module z_motor_mount() {
 
       for(side=[left,right]) {
         for(end=[front,rear]) {
-          translate([motor_hole_spacing/2*side,motor_hole_spacing/2*end,0])
+          translate([z_motor_hole_spacing/2*side,z_motor_hole_spacing/2*end,0])
             hole(3,sheet_thickness+0.05,10);
         }
       }
