@@ -15,12 +15,12 @@ build_x_with_overhead = y_carriage_width + 30;
 build_y_with_overhead = build_y + y_carriage_bearing_spacing_y + bearing_len + 30;
 build_z_with_overhead = build_z + z_overhead;
 
-space_behind_z_motor = 6; // make room for X smooth rods, x ends
+space_behind_z_motor = 3; // make room for X smooth rods, x ends
 skew_main_plate_to_rear = nema17_side+sheet_thickness/2+space_behind_z_motor;
 
 x_carriage_height = 60; // from prusa i3 parts
 
-z_motor_mount_width = nema17_side + 2;
+z_motor_mount_width = nema17_side + 6;
 z_motor_mount_depth = nema17_side+space_behind_z_motor;
 
 z_motor_brace_depth = z_motor_mount_depth;
