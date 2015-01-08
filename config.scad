@@ -199,8 +199,8 @@ z_motor_shaft_diam = nema17_shaft_diam;
 z_motor_shaft_len = nema17_shaft_len;
 
 // Frame sheet
-sheet_thickness = 6;
-bc_thickness = 6;
+sheet_thickness = 6.5;
+bc_thickness    = 6.5;
 sheet_shoulder_width = 4; // material to have on the far side of a slot
 
 sheet_screw_diam = m3_diam;
