@@ -24,13 +24,13 @@ line_cube = [line_diam,line_diam,line_diam];
 belt_width = 6;
 
 // Printer size
-build_x = 400;
-build_y = 400;
-build_z = 400;
+//build_x = 400;
+//build_y = 400;
+//build_z = 400;
 
 build_x = 200;
 build_y = 200;
-build_z = 200;
+build_z = 245;
 
 /*
 build_x = 150;
@@ -74,12 +74,12 @@ lm6uu_bearing_groove_width = .5;
 lm6uu_bearing_groove_depth = .2;
 lm6uu_rod_diam = 6;
 
-bearing_diam           = lm10uu_bearing_diam;
-bearing_len            = lm10uu_bearing_len;
-bearing_groove_spacing = lm10uu_bearing_groove_spacing;
-bearing_groove_width   = lm10uu_bearing_groove_width;
-bearing_groove_depth   = lm10uu_bearing_groove_depth;
-rod_diam               = lm10uu_rod_diam;
+// bearing_diam           = lm10uu_bearing_diam;
+// bearing_len            = lm10uu_bearing_len;
+// bearing_groove_spacing = lm10uu_bearing_groove_spacing;
+// bearing_groove_width   = lm10uu_bearing_groove_width;
+// bearing_groove_depth   = lm10uu_bearing_groove_depth;
+// rod_diam               = lm10uu_rod_diam;
 
 bearing_diam           = lm8uu_bearing_diam;
 bearing_len            = lm8uu_bearing_len;
@@ -184,12 +184,12 @@ motor_wire_hole_width  = 9;
 motor_wire_hole_height = 6;
 */
 
-z_motor_side = nema14_side;
-z_motor_len = z_motor_side;
-z_motor_hole_spacing = nema14_hole_spacing;
-z_motor_screw_diam = nema14_screw_diam;
-z_motor_shaft_diam = nema14_shaft_diam;
-z_motor_shaft_len = nema14_shaft_len;
+// z_motor_side = nema14_side;
+// z_motor_len = z_motor_side;
+// z_motor_hole_spacing = nema14_hole_spacing;
+// z_motor_screw_diam = nema14_screw_diam;
+// z_motor_shaft_diam = nema14_shaft_diam;
+// z_motor_shaft_len = nema14_shaft_len;
 
 z_motor_side = nema17_side;
 z_motor_len = z_motor_side;
@@ -207,7 +207,7 @@ sheet_screw_diam = m3_diam;
 sheet_screw_nut_diam = m3_nut_diam;
 sheet_screw_nut_thickness = m3_nut_thickness;
 sheet_hole_resolution = 36;
-sheet_hole_resolution = 8;
+//sheet_hole_resolution = 8;
 
 top_plate_screw_diam = sheet_screw_diam;
 

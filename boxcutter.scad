@@ -22,7 +22,7 @@ module bc_screw_nut_hole() {
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
+  //nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
   tab_slot_pair_space = tab_len * 1.5;
@@ -47,7 +47,7 @@ module bc_offset_screw_nut_hole() {
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
+  //nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
   tab_slot_pair_space = tab_len * 1.5;
@@ -81,7 +81,7 @@ module bc_position_along_line(to_fill=0) {
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
+  //nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
   tab_slot_pair_space = tab_len * 1.5;
@@ -118,12 +118,12 @@ module bc_position_along_line(to_fill=0) {
 
   if(num_fit ==1) {
     translate([-tab_slot_pair_len/2,0,0])
-    child(0);
+    children();
   } else {
     translate([-to_fill/2,0,0]) {
       for(i=[0:num_fit-1]) {
         translate([i*(tab_slot_pair_len+space_between),0,0]) {
-          child(0);
+          children();
         }
       }
     }
@@ -142,7 +142,7 @@ module bc_tab_pair(with_hole=WITH_HOLES) {
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
+  //nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
   tab_slot_pair_space = tab_len * 1.5;
@@ -170,7 +170,7 @@ module bc_offset_tab_pair(with_hole=NO_HOLES) {
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
+  //nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
   tab_slot_pair_space = tab_len * 1.5;
@@ -209,7 +209,7 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
   nyloc_nut_height = 4;
   std_nut_height = 2.5;
-  nut_height = nyloc_nut_height;
+  //nut_height = nyloc_nut_height;
   nut_height = std_nut_height;
 
   echo("Screw length: ", thickness + shoulder_width + nut_height);

@@ -39,8 +39,9 @@ module plate_1of2_24x18() {
     translate([-side_brace_total_depth/2-sheet_thickness,side_brace_total_height/2+overhead,0]) rotate([0,180,0])
       side_brace();
 
-  translate([-sheet_width/2,-sheet_height/2+overhead*1.5,0]) {
-    translate([z_motor_mount_width+overhead,0,0]) {
+  //translate([-sheet_width/2,-sheet_height/2+overhead*1.5,0]) {
+  translate([sheet_width/2-side_brace_total_depth,-sheet_height/2+overhead*1.5,0]) {
+    translate([-z_motor_mount_width*3,0,0]) {
       z_rod_top_brace();
 
       translate([-z_rod_retainer_rod_screw_dist*2,-rod_diam/2,0]) rotate([0,0,-90])
