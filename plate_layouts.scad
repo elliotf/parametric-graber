@@ -10,8 +10,8 @@ overhead = sheet_thickness*2;
 main_plate_arm_width = sheet_thickness*5+z_motor_mount_width;
 
 module plate_1of2_24x18() {
-  % translate([0,0,-sheet_thickness-0.05])
-    cube([sheet_width,sheet_height,sheet_thickness],center=true);
+  % translate([0,0,-sheet_thickness])
+    square([sheet_width,sheet_height],center=true);
 
   translate([-sheet_width/2,sheet_height/2,0]) {
     translate([main_plate_width/2,-main_plate_height/2,0])
@@ -59,8 +59,8 @@ module plate_1of2_24x18() {
 }
 
 module plate_2of2_24x18() {
-  % translate([0,0,-sheet_thickness-0.05])
-    cube([sheet_width,sheet_height,sheet_thickness],center=true);
+  % translate([0,0,-sheet_thickness])
+    square([sheet_width,sheet_height],center=true);
 
   translate([-sheet_width/2+side_brace_total_depth/2+sheet_thickness,-sheet_height/2+side_brace_total_height/2+overhead,0])
     side_brace();

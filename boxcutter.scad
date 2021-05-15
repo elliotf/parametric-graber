@@ -8,7 +8,7 @@ bc_tab_from_end_dist=bc_shoulder_width*3.5;
 WITH_HOLES = 1;
 NO_HOLES = 0;
 
-function bc_hole_diam(diam,sides=8) = 1 / cos(180 / sides) / 2;
+hole_resolution = 16;
 
 module bc_screw_nut_hole() {
   // DUPE
@@ -62,10 +62,10 @@ module bc_offset_screw_nut_hole() {
 
   translate([tab_slot_pair_len/2,-thickness/2,0]) {
     translate([0,-shoulder_width*0.65-nut_height/2,0])
-      cube([nut_diam,nut_height,thick],center=true);
+      square([nut_diam,nut_height],center=true);
 
     translate([0,-screw_len/2+0.05,0])
-      cube([screw_diam,screw_len,thick],center=true);
+      square([screw_diam,screw_len],center=true);
   }
 }
 
@@ -185,7 +185,7 @@ module bc_offset_tab_pair(with_hole=NO_HOLES) {
 
   module tab() {
     translate([tab_len/2,0,0])
-      cube([tab_len,thickness+0.05,thickness],center=true);
+      square([tab_len,thickness+0.05],center=true);
   }
 
   tab();
@@ -193,7 +193,7 @@ module bc_offset_tab_pair(with_hole=NO_HOLES) {
 
   if(with_hole==WITH_HOLES) {
     translate([tab_slot_pair_len/2,0,0])
-      cylinder(r=screw_diam*bc_hole_diam(12),h=thickness+0.05,center=true,$fn=12);
+      accurate_circle(screw_diam,hole_resolution);
   }
 }
 
@@ -257,14 +257,14 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
 
     trans_dist = 0 + len_to_add/2*slots_to_right + len_to_add/2*-slots_to_left;
     translate([trans_dist,(shoulder_width)/2,0])
-      cube([len,thickness+shoulder_width,thickness],center=true);
+      square([len,thickness+shoulder_width],center=true);
   }
 
   function tab_space_for_side(side) = dimensions[side%2]-tab_from_end_dist*2;
 
   difference() {
     union() {
-      cube([dimensions[0],dimensions[1],thickness],center=true);
+      square([dimensions[0],dimensions[1]],center=true);
 
       for(side=[0,1,2,3]) {
         color(colors[side])
@@ -307,68 +307,3 @@ module box_side(dimensions=[0,0],sides=[0,0,0,0]) {
     }
   }
 }
-
-/*
-vol = [250,200,73];
-
-width = vol[0];
-depth = vol[1];
-height = vol[2];
-
-thickness = 6;
-top = 1;
-bottom = -1;
-left = -1;
-right = 1;
-front = -1;
-rear = 1;
-
-% cube(vol,center=true);
-
-shoulder_width = 40;
-overhead = thickness+3;
-opening_width = width-shoulder_width*2;
-opening_depth = depth-shoulder_width+overhead;
-opening_height = height-shoulder_width+overhead;
-
-// top
-translate([0,0,(height/2+thickness/2+thickness*2)*top]) {
-  difference() {
-    box_side([width,depth],[2,2,2,2]);
-
-    translate([0,shoulder_width/-2-overhead/2-0.05,0]) {
-      cube([opening_width,opening_depth,thickness+1],center=true);
-    }
-  }
-}
-
-// bottom
-translate([0,0,(height/2+thickness/2+thickness*2)*bottom])
-  box_side([width,depth],[1,1,1,1]);
-
-// sides
-for(side=[-1,1]) {
-  translate([(width/2+thickness/2+thickness*2)*side,0,0]) rotate([0,0,90]) rotate([90,0,0])
-    box_side([depth,height],[1,1,2,2]);
-}
-
-// front
-translate([0,(depth/2+thickness/2+thickness*2)*front,0]) rotate([90,0,0])
-  difference() {
-    box_side([width,height],[1,2,2,2]);
-
-    hull() {
-      translate([0,height/2+thickness/2+0.05,0]) {
-        cube([opening_width,thickness,thickness+1],center=true);
-      }
-
-      translate([0,-height/2+(height-opening_height),0]) {
-        cube([opening_width-25,1,thickness+1],center=true);
-      }
-    }
-  }
-
-// rear
-translate([0,(depth/2+thickness/2+thickness*2)*rear,0]) rotate([90,0,0])
-  box_side([width,height],[1,1,2,1]);
-  */
