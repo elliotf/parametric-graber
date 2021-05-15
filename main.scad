@@ -1,7 +1,8 @@
-include <boxcutter.scad>;
+include <lumpyscad/lib.scad>;
 include <config.scad>;
+
+include <boxcutter.scad>;
 include <positions.scad>;
-use <util.scad>;
 
 // build volume for debugging
 //% translate([0,y_carriage_y_pos,build_z/2+heatbed_z_pos+heatbed_thickness/2+0.05]) cube([build_x,build_y,build_z],center=true);
